@@ -1,0 +1,6 @@
+.photo-grid__textbox {
+  max-width: calc(100% - 50px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

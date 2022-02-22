@@ -1,0 +1,23 @@
+.header {
+  margin: 45px auto 0;
+  border-bottom-color: #545454;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  max-width: calc(100% - 2*200px);
+  height: 74px;
+}
+
+@media screen and (max-width:1280px) {
+  .header {
+    --horizontal-margin: calc(19px + 181*(100% - 768px)/(1280 - 768));
+    max-width: calc(100% - 2*var(--horizontal-margin));
+  }
+}
+
+@media screen and (max-width:768px) {
+  .header {
+    margin-top: 28px;
+    max-width: 100%;
+    height: 56px;
+  }
+}

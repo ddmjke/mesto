@@ -6,7 +6,83 @@
   <title>MESTO</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
-<body>
-  
+
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="./images/logo.svg" alt="Логотип Место">
+  </header>
+
+  <main>
+    <section class="profile">
+      <img class="profile__avatar" src="./images/userpic.jpg" alt="Аватар">
+      <div class="profile__info">
+        <p class="profile__name">Жак-Ив Кусто</p>
+        <button class="profile__eddit-button"></button>
+        <p class="profile__description">Исследователь океана</p>
+      </div>
+      <button class="profile__add-button"></button>
+    </section>
+
+    <section class="photo-grid">
+      <figure class="photo-grid__card">
+        <img class="photo-grid__photo" src="./images/photo-1-karachaevsk.jpg" alt="Карачаевск">
+        <figcaption class="photo-grid__caption">
+          <p>Карачаевск</p>
+          <button class="photo-grid__like-button"></button>
+        </figcaption>
+      </figure>
+      <figure class="photo-grid__card">
+        <img class="photo-grid__photo" src="./images/photo-2.jpg" alt="Гора Эльбрус">
+        <figcaption class="photo-grid__caption">
+          <p>Гора Эльбрус</p>
+          <button class="photo-grid__like-button"></button>
+        </figcaption>
+      </figure>
+      <figure class="photo-grid__card">
+        <img class="photo-grid__photo" src="./images/photo-3.jpg" alt="Домбай">
+        <figcaption class="photo-grid__caption">
+          <p>Домбай</p>
+          <button class="photo-grid__like-button"></button>
+        </figcaption>
+      </figure>
+      <figure class="photo-grid__card">
+        <img class="photo-grid__photo" src="./images/photo-4.jpg" alt="Гора Эльбрус">
+        <figcaption class="photo-grid__caption">
+          <p>Гора Эльбрус</p>
+          <button class="photo-grid__like-button"></button>
+        </figcaption>
+      </figure>
+      <figure class="photo-grid__card">
+        <img class="photo-grid__photo" src="./images/photo-5.jpg" alt="Домбай">
+        <figcaption class="photo-grid__caption">
+          <p>Домбай</p>
+          <button class="photo-grid__like-button"></button>
+        </figcaption>
+      </figure>
+      <figure class="photo-grid__card">
+        <img class="photo-grid__photo" src="./images/photo-6.jpg" alt="Карачаево-Черкессия">
+        <figcaption class="photo-grid__caption">
+          <p class="photo-grid__textbox">Карачаево-Черкессия</p>
+          <button class="photo-grid__like-button"></button>
+        </figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <section class="pop-up pop-up_active">
+    <form class="pop-up__container">
+      <h2 class="pop-up__title">Редактировать профиль</h2>
+      <input class="pop-up__input pop-up__input_field_name" type="text" id="username" placeholder="Жак-Ив Кусто" required>
+      <div class="pop-up__line"></div>
+      <input class="pop-up__input pop-up__input_field_info" type="text" di="user-info" placeholder="Исследователь океана" required>
+      <div class="pop-up__line"></div>
+      <button class="pop-up__submit-button" type="submit">Сохранить</button>
+      <button class="pop-up__close-button"></button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
 </body>
 </html>
