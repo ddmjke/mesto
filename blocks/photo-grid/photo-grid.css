@@ -14,7 +14,6 @@
   .photo-grid {
     --horizontal-margin: calc(19px + 181*(100% - 768px)/(1280 - 768));
     max-width: calc(100% - 2*var(--horizontal-margin));
-    max-width: -webkit-calc(100% - 2*var(--horizontal-margin));
   }
 }
 

@@ -3,7 +3,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 120px;
   max-width: calc(100% - 2*200px);
 }
 
@@ -19,6 +18,5 @@
     flex-direction: column;
     margin-top: 42px;
     max-width: calc(100% - 2*19px);
-    height: 100%;
   }
 }

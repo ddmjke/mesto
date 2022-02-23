@@ -4,7 +4,7 @@
   border-bottom-style: solid;
   border-bottom-width: 1px;
   max-width: calc(100% - 2*200px);
-  height: 74px;
+  max-height: 74px;
 }
 
 @media screen and (max-width:1280px) {
