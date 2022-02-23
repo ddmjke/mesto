@@ -4,7 +4,7 @@ let profileInfo = profile.querySelector('.profile__description');
 let profileEdditButton = profile.querySelector('.profile__eddit-button');
 
 let popup = document.querySelector('.pop-up');
-let popupSubmitButton = popup.querySelector('.pop-up__submit-button');
+let popupForm = popup.querySelector('.pop-up__container');
 let popupCloseButton = popup.querySelector('.pop-up__close-button');
 let popupInputs = popup.querySelectorAll('.pop-up__input')
 
@@ -26,4 +26,4 @@ function submitEddit(evt) {
 
 profileEdditButton.addEventListener('click',openEddit);
 popupCloseButton.addEventListener('click', closeEddit);
-popupSubmitButton.addEventListener('click', submitEddit)
+popupForm.addEventListener('submit', submitEddit);
