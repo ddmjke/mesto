@@ -16,74 +16,75 @@
     <section class="profile">
       <img class="profile__avatar" src="./images/userpic.jpg" alt="Аватар">
       <div class="profile__info">
-        <p class="profile__name">Жак-Ив Кусто</p>
-        <button class="profile__eddit-button"></button>
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__eddit-button" type="button"></button>
         <p class="profile__description">Исследователь океана</p>
       </div>
-      <button class="profile__add-button"></button>
+      <button class="profile__add-button" type="button"></button>
     </section>
 
     <section class="photo-grid">
-      <figure class="photo-grid__card">
+      <div class="photo-grid__card">
         <img class="photo-grid__photo" src="./images/photo-1-karachaevsk.jpg" alt="Карачаевск">
         <figcaption class="photo-grid__caption">
-          <p>Карачаевск</p>
-          <button class="photo-grid__like-button"></button>
+          <h2 class="photo-grid__textbox">Карачаевск</h2>
+          <button class="photo-grid__like-button" type="button"></button>
         </figcaption>
-      </figure>
-      <figure class="photo-grid__card">
+      </div>
+      <div class="photo-grid__card">
         <img class="photo-grid__photo" src="./images/photo-2.jpg" alt="Гора Эльбрус">
         <figcaption class="photo-grid__caption">
-          <p>Гора Эльбрус</p>
-          <button class="photo-grid__like-button"></button>
+          <h2 class="photo-grid__textbox">Гора Эльбрус</h2>
+          <button class="photo-grid__like-button" type="button"></button>
         </figcaption>
-      </figure>
-      <figure class="photo-grid__card">
+      </div>
+      <div class="photo-grid__card">
         <img class="photo-grid__photo" src="./images/photo-3.jpg" alt="Домбай">
         <figcaption class="photo-grid__caption">
-          <p>Домбай</p>
-          <button class="photo-grid__like-button"></button>
+          <h2 class="photo-grid__textbox">Домбай</h2>
+          <button class="photo-grid__like-button" type="button"></button>
         </figcaption>
-      </figure>
-      <figure class="photo-grid__card">
+      </div>
+      <div class="photo-grid__card">
         <img class="photo-grid__photo" src="./images/photo-4.jpg" alt="Гора Эльбрус">
         <figcaption class="photo-grid__caption">
-          <p>Гора Эльбрус</p>
-          <button class="photo-grid__like-button"></button>
+          <h2 class="photo-grid__textbox">Гора Эльбрус</h2>
+          <button class="photo-grid__like-button" type="button"></button>
         </figcaption>
-      </figure>
-      <figure class="photo-grid__card">
+      </div>
+      <div class="photo-grid__card">
         <img class="photo-grid__photo" src="./images/photo-5.jpg" alt="Домбай">
         <figcaption class="photo-grid__caption">
-          <p>Домбай</p>
-          <button class="photo-grid__like-button"></button>
+          <h2 class="photo-grid__textbox">Домбай</h2>
+          <button class="photo-grid__like-button" type="button"></button>
         </figcaption>
-      </figure>
-      <figure class="photo-grid__card">
+      </div>
+      <div class="photo-grid__card">
         <img class="photo-grid__photo" src="./images/photo-6.jpg" alt="Карачаево-Черкессия">
         <figcaption class="photo-grid__caption">
-          <p class="photo-grid__textbox">Карачаево-Черкессия</p>
-          <button class="photo-grid__like-button"></button>
+          <h2 class="photo-grid__textbox">Карачаево-Черкессия</h2>
+          <button class="photo-grid__like-button" type="button"></button>
         </figcaption>
-      </figure>
+      </div>
     </section>
   </main>
-
-  <section class="pop-up">
-    <form class="pop-up__container">
-      <h2 class="pop-up__title">Редактировать профиль</h2>
-      <input class="pop-up__input pop-up__input_field_name" type="text" placeholder="Жак-Ив Кусто" required>
-      <div class="pop-up__line"></div>
-      <input class="pop-up__input pop-up__input_field_info" type="text" placeholder="Исследователь океана" required>
-      <div class="pop-up__line"></div>
-      <button class="pop-up__submit-button" type="submit">Сохранить</button>
-      <button class="pop-up__close-button"></button>
-    </form>
-  </section>
-
+  
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <script src="./script.js"></script>
+
+  <div class="pop-up">
+    <div class="pop-up__container">
+      <h2 class="pop-up__title">Редактировать профиль</h2>
+      <form class="pop-up__form" name="ueser-info">
+        <input class="pop-up__input pop-up__input_field_name" type="text" name="user-name" placeholder="Имя" required>
+        <input class="pop-up__input pop-up__input_field_info" type="text" name="user-profession" placeholder="Род деятельности" required>
+        <button class="pop-up__submit-button" type="submit">Сохранить</button>
+      </form>
+      <button class="pop-up__close-button" type="button"></button>
+    </div>
+  </div>
+
+  <script src="./scripts/script.js"></script>
 </body>
 </html>
