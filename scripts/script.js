@@ -80,6 +80,7 @@ function addPhoto(args) {
   cards.insertAdjacentHTML("beforeend",`
     <div class="photo-grid__card">
     <img class="photo-grid__photo" src="${args.link}" alt="${args.name}">
+    <button class="photo-grid__remove-button"></button>
     <div class="photo-grid__caption">
       <h2 class="photo-grid__textbox">${args.name}</h2>
       <button class="photo-grid__like-button" type="button"></button>
