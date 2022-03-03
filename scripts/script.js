@@ -1,3 +1,30 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
 let profile = document.querySelector('.profile');
 let profileName = profile.querySelector('.profile__name');
 let profileInfo = profile.querySelector('.profile__description');
@@ -15,6 +42,8 @@ let popupAddCloseButton = popupAdd.querySelector('.pop-up__close-button');
 let popupAddForm = popupAdd.querySelector('.pop-up__form');
 let popupAddName = popupAddForm.querySelector('.pop-up__input_field_place-name');
 let popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link');
+
+let cards = document.querySelector('.photo-grid');
 
 
 function openEddit() {
@@ -46,6 +75,20 @@ function submitAdd(evt) {
   evt.preventDefault();
   closeAdd(evt);
 }
+
+function addPhoto(args) {
+  cards.insertAdjacentHTML("beforeend",`
+    <div class="photo-grid__card">
+    <img class="photo-grid__photo" src="${args.link}" alt="${args.name}">
+    <div class="photo-grid__caption">
+      <h2 class="photo-grid__textbox">${args.name}</h2>
+      <button class="photo-grid__like-button" type="button"></button>
+    </div>
+    </div>
+  `)
+}
+
+initialCards.map(addPhoto);
 
 profileEdditButton.addEventListener('click',openEddit);
 popupProfileCloseButton.addEventListener('click', closeEddit);
