@@ -45,6 +45,9 @@ let popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link')
 
 let cards = document.querySelector('.photo-grid');
 
+let popupPhoto = document.querySelector('.pop-up_type_photo');
+let popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
+
 
 function openEddit() {
   popupProfileUserName.value = profileName.textContent;
@@ -73,48 +76,37 @@ function closeAdd(evt) {
 }
 function submitAdd(evt) {
   evt.preventDefault();
+  addPhoto({
+    name: popupAddName.value,
+    link: popupAddLink.value
+  })
   closeAdd(evt);
 }
 
+function openPhoto(evt) {
+  popupPhoto.querySelector('.pop-up__image').src = evt.target.closest('.photo-grid__photo').src;
+  popupPhoto.querySelector('.pop-up__image-caption').textContent = evt.target.closest('.photo-grid__card').querySelector('.photo-grid__textbox').textContent;
+  popupPhoto.classList.add('pop-up_active');
+}
+function closePhoto(evt) {
+  evt.preventDefault();
+  popupPhoto.classList.remove('pop-up_active');
+}
+
 function addPhoto(args) {
-  // const photoGrid = document.querySelector('photo-grid');
-
-  const photoCardElement = document.createElement('div');
-  photoCardElement.classList.add('photo-grid__card');
-
-  const photoCardImage = document.createElement('img');
-  photoCardImage.classList.add('photo-grid__photo');
-  photoCardImage.src = args.link;
-  photoCardImage.alt = args.name;
-
-  const photoCardRemoveButton = document.createElement('button');
-  photoCardRemoveButton.classList.add('photo-grid__remove-button');
-
-  const photoCaptionContainer = document.createElement('div');
-  photoCaptionContainer.classList.add('photo-grid__caption');
-  
-  const photoCaptionText = document.createElement('h2');
-  photoCaptionText.classList.add('photo-grid__textbox');
-  photoCaptionText.textContent = args.name;
-
-  const photoCaptionLikeButton = document.createElement('button');
-  photoCaptionLikeButton.classList.add('photo-grid__like-button');
-  photoCaptionLikeButton.type = 'button';
-
-  photoCaptionContainer.append(photoCaptionText, photoCaptionLikeButton);
-  photoCardElement.append(photoCardImage, photoCardRemoveButton, photoCaptionContainer);
-  cards.append(photoCardElement);
-  
-  // cards.insertAdjacentHTML("beforeend",`
-  //   <div class="photo-grid__card">
-  //   <img class="photo-grid__photo" src="${args.link}" alt="${args.name}">
-  //   <button class="photo-grid__remove-button"></button>
-  //   <div class="photo-grid__caption">
-  //     <h2 class="photo-grid__textbox">${args.name}</h2>
-  //     <button class="photo-grid__like-button" type="button"></button>
-  //   </div>
-  //   </div>
-  // `)
+  const cardTemplate = document.querySelector('#card-template').content;
+  const card = cardTemplate.querySelector('.photo-grid__card').cloneNode(true);
+  card.querySelector('.photo-grid__photo').src = args.link;
+  card.querySelector('.photo-grid__photo').alt = args.name;
+  card.querySelector('.photo-grid__textbox').textContent = args.name;
+  card.querySelector('.photo-grid__like-button').addEventListener('click', (evt) => {
+    evt.target.classList.toggle('photo-grid__like-button_active');
+  });
+  card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
+    card.remove(evt.target.closest('.photo-grid__card'));
+  });
+  card.querySelector('.photo-grid__photo').addEventListener('click', openPhoto);
+  cards.append(card);
 }
 
 initialCards.map(addPhoto);
@@ -126,3 +118,5 @@ popupProfileForm.addEventListener('submit', submitEddit);
 addPhotoButton.addEventListener('click', openAdd);
 popupAddCloseButton.addEventListener('click', closeAdd);
 popupAddForm.addEventListener('submit', submitAdd);
+
+popupPhotoClose.addEventListener('click', closePhoto);
