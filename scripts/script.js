@@ -109,7 +109,7 @@ function addPhoto(args) {
   cards.append(card);
 }
 
-initialCards.map(addPhoto);
+window.onload = initialCards.map(addPhoto);
 
 profileEdditButton.addEventListener('click',openEddit);
 popupProfileCloseButton.addEventListener('click', closeEddit);
