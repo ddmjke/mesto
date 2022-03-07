@@ -77,16 +77,44 @@ function submitAdd(evt) {
 }
 
 function addPhoto(args) {
-  cards.insertAdjacentHTML("beforeend",`
-    <div class="photo-grid__card">
-    <img class="photo-grid__photo" src="${args.link}" alt="${args.name}">
-    <button class="photo-grid__remove-button"></button>
-    <div class="photo-grid__caption">
-      <h2 class="photo-grid__textbox">${args.name}</h2>
-      <button class="photo-grid__like-button" type="button"></button>
-    </div>
-    </div>
-  `)
+  // const photoGrid = document.querySelector('photo-grid');
+
+  const photoCardElement = document.createElement('div');
+  photoCardElement.classList.add('photo-grid__card');
+
+  const photoCardImage = document.createElement('img');
+  photoCardImage.classList.add('photo-grid__photo');
+  photoCardImage.src = args.link;
+  photoCardImage.alt = args.name;
+
+  const photoCardRemoveButton = document.createElement('button');
+  photoCardRemoveButton.classList.add('photo-grid__remove-button');
+
+  const photoCaptionContainer = document.createElement('div');
+  photoCaptionContainer.classList.add('photo-grid__caption');
+  
+  const photoCaptionText = document.createElement('h2');
+  photoCaptionText.classList.add('photo-grid__textbox');
+  photoCaptionText.textContent = args.name;
+
+  const photoCaptionLikeButton = document.createElement('button');
+  photoCaptionLikeButton.classList.add('photo-grid__like-button');
+  photoCaptionLikeButton.type = 'button';
+
+  photoCaptionContainer.append(photoCaptionText, photoCaptionLikeButton);
+  photoCardElement.append(photoCardImage, photoCardRemoveButton, photoCaptionContainer);
+  cards.append(photoCardElement);
+  
+  // cards.insertAdjacentHTML("beforeend",`
+  //   <div class="photo-grid__card">
+  //   <img class="photo-grid__photo" src="${args.link}" alt="${args.name}">
+  //   <button class="photo-grid__remove-button"></button>
+  //   <div class="photo-grid__caption">
+  //     <h2 class="photo-grid__textbox">${args.name}</h2>
+  //     <button class="photo-grid__like-button" type="button"></button>
+  //   </div>
+  //   </div>
+  // `)
 }
 
 initialCards.map(addPhoto);
