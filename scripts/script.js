@@ -25,29 +25,30 @@ const initialCards = [
   }
 ];
 
-let profile = document.querySelector('.profile');
-let profileName = profile.querySelector('.profile__name');
-let profileInfo = profile.querySelector('.profile__description');
-let profileEdditButton = profile.querySelector('.profile__eddit-button');
-let addPhotoButton = profile.querySelector('.profile__add-button');
+const profile = document.querySelector('.profile');
+const profileName = profile.querySelector('.profile__name');
+const profileInfo = profile.querySelector('.profile__description');
+const profileEdditButton = profile.querySelector('.profile__eddit-button');
+const addPhotoButton = profile.querySelector('.profile__add-button');
 
-let popupProfile = document.querySelector('.pop-up_type_profile');
-let popupProfileCloseButton = popupProfile.querySelector('.pop-up__close-button');
-let popupProfileForm = popupProfile.querySelector('.pop-up__form');
-let popupProfileUserName = popupProfileForm.querySelector('.pop-up__input_field_name');
-let popupProfileUserInfo = popupProfileForm.querySelector('.pop-up__input_field_info');
+const popupProfile = document.querySelector('.pop-up_type_profile');
+const popupProfileCloseButton = popupProfile.querySelector('.pop-up__close-button');
+const popupProfileForm = popupProfile.querySelector('.pop-up__form');
+const popupProfileUserName = popupProfileForm.querySelector('.pop-up__input_field_name');
+const popupProfileUserInfo = popupProfileForm.querySelector('.pop-up__input_field_info');
 
-let popupAdd = document.querySelector('.pop-up_type_place');
-let popupAddCloseButton = popupAdd.querySelector('.pop-up__close-button');
-let popupAddForm = popupAdd.querySelector('.pop-up__form');
-let popupAddName = popupAddForm.querySelector('.pop-up__input_field_place-name');
-let popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link');
+const popupAdd = document.querySelector('.pop-up_type_place');
+const popupAddCloseButton = popupAdd.querySelector('.pop-up__close-button');
+const popupAddForm = popupAdd.querySelector('.pop-up__form');
+const popupAddName = popupAddForm.querySelector('.pop-up__input_field_place-name');
+const popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link');
 
-let cards = document.querySelector('.photo-grid');
+const cards = document.querySelector('.photo-grid');
 
-let popupPhoto = document.querySelector('.pop-up_type_photo');
-let popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
+const popupPhoto = document.querySelector('.pop-up_type_photo');
+const popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
 
+const cardTemplate = document.querySelector('#card-template').content;
 
 function openEddit() {
   popupProfileUserName.value = profileName.textContent;
@@ -92,9 +93,7 @@ function closePhoto(evt) {
   evt.preventDefault();
   popupPhoto.classList.remove('pop-up_active');
 }
-
 function addPhoto(args) {
-  const cardTemplate = document.querySelector('#card-template').content;
   const card = cardTemplate.querySelector('.photo-grid__card').cloneNode(true);
   card.querySelector('.photo-grid__photo').src = args.link;
   card.querySelector('.photo-grid__photo').alt = args.name;
