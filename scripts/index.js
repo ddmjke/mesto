@@ -29,7 +29,7 @@ const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
 const profileInfo = profile.querySelector('.profile__description');
 const profileEdditButton = profile.querySelector('.profile__eddit-button');
-const addPhotoButton = profile.querySelector('.profile__add-button');
+const photoAddButton = profile.querySelector('.profile__add-button');
 
 const popupProfile = document.querySelector('.pop-up_type_profile');
 const popupProfileCloseButton = popupProfile.querySelector('.pop-up__close-button');
@@ -43,79 +43,102 @@ const popupAddForm = popupAdd.querySelector('.pop-up__form');
 const popupAddName = popupAddForm.querySelector('.pop-up__input_field_place-name');
 const popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link');
 
-const cards = document.querySelector('.photo-grid');
+const cardContainer = document.querySelector('.photo-grid');
 
 const popupPhoto = document.querySelector('.pop-up_type_photo');
 const popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
+const popupPhotoLink = popupPhoto.querySelector('.pop-up__image');
+const popupPhotoName = popupPhoto.querySelector('.pop-up__image-caption');
 
 const cardTemplate = document.querySelector('#card-template').content;
 
-function openEddit() {
+function openPopup(element) {
+  element.classList.add('pop-up_active');
+}
+function closePopup(element) {
+  element.classList.remove('pop-up_active');
+}
+
+function fillEdditForm() {
   popupProfileUserName.value = profileName.textContent;
   popupProfileUserInfo.value = profileInfo.textContent;
-  popupProfile.classList.add('pop-up_active');
 }
-function closeEddit(evt) {
-  evt.preventDefault(); 
-  popupProfile.classList.remove('pop-up_active');
+function resetForm(element) {
+  element.reset();
 }
-function submitEddit(evt) {
-  evt.preventDefault(); 
+function fillPhotoPopup(evt) {
+  const card = evt.target.closest('.photo-grid__card');
+  popupPhotoLink.src = card.querySelector('.photo-grid__photo').src;
+  popupPhotoName.textContent = card.querySelector('.photo-grid__textbox').textContent;
+}
+
+function submitProfile(evt) {
   profileName.textContent = popupProfileUserName.value;
   profileInfo.textContent = popupProfileUserInfo.value;
-  closeEddit(evt);
 }
 
-function openAdd() {
-  popupAddName.value = '';
-  popupAddLink.value = '';
-  popupAdd.classList.add('pop-up_active');
-}
-function closeAdd(evt) {
-  evt.preventDefault();
-  popupAdd.classList.remove('pop-up_active');
-}
-function submitAdd(evt) {
-  evt.preventDefault();
-  addPhoto({
+function submitCard(evt) {
+  renderCard(addPhoto({
     name: popupAddName.value,
     link: popupAddLink.value
-  })
-  closeAdd(evt);
+  }))
 }
 
-function openPhoto(evt) {
-  popupPhoto.querySelector('.pop-up__image').src = evt.target.closest('.photo-grid__photo').src;
-  popupPhoto.querySelector('.pop-up__image-caption').textContent = evt.target.closest('.photo-grid__card').querySelector('.photo-grid__textbox').textContent;
-  popupPhoto.classList.add('pop-up_active');
-}
-function closePhoto(evt) {
-  evt.preventDefault();
-  popupPhoto.classList.remove('pop-up_active');
-}
 function addPhoto(args) {
   const card = cardTemplate.querySelector('.photo-grid__card').cloneNode(true);
   card.querySelector('.photo-grid__photo').src = args.link;
   card.querySelector('.photo-grid__photo').alt = args.name;
   card.querySelector('.photo-grid__textbox').textContent = args.name;
+
   card.querySelector('.photo-grid__like-button').addEventListener('click', (evt) => {
     evt.target.classList.toggle('photo-grid__like-button_active');
   });
   card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
     card.remove(evt.target.closest('.photo-grid__card'));
   });
-  card.querySelector('.photo-grid__photo').addEventListener('click', openPhoto);
-  cards.append(card);
+  card.querySelector('.photo-grid__photo').addEventListener('click', (evt) => {
+    fillPhotoPopup(evt);
+    openPopup(popupPhoto);
+  });
+  return card;
+}
+function renderCard(elem) {
+  cardContainer.prepend(elem);
 }
 
-window.onload = initialCards.map(addPhoto);
+window.onload = initialCards.forEach((arg) => {
+  renderCard(addPhoto(arg));
+});
 
-profileEdditButton.addEventListener('click',openEddit);
-popupProfileCloseButton.addEventListener('click', closeEddit);
-popupProfileForm.addEventListener('submit', submitEddit);
+profileEdditButton.addEventListener('click',() => {
+  fillEdditForm();
+  openPopup(popupProfile);
+});
+popupProfileCloseButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  closePopup(popupProfile);
+});
+popupProfileForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  submitProfile();
+  closePopup(popupProfile);
+});
 
-addPhotoButton.addEventListener('click', openAdd);
-popupAddCloseButton.addEventListener('click', closeAdd);
-popupAddForm.addEventListener('submit', submitAdd);
+photoAddButton.addEventListener('click', () => {
+  resetForm(popupAddForm);
+  openPopup(popupAdd);
+});
+popupAddCloseButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  closePopup(popupAdd);
+});
+popupAddForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  submitCard();
+  closePopup(popupAdd);
+});
 
-popupPhotoClose.addEventListener('click', closePhoto);
+popupPhotoClose.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  closePopup(popupPhoto);
+});
