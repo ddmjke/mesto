@@ -43,7 +43,7 @@ const popupAddForm = popupAdd.querySelector('.pop-up__form');
 const popupAddName = popupAddForm.querySelector('.pop-up__input_field_place-name');
 const popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link');
 
-const cardContainer = document.querySelector('.photo-grid');
+const cardsContainer = document.querySelector('.photo-grid');
 
 const popupPhoto = document.querySelector('.pop-up_type_photo');
 const popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
@@ -70,6 +70,7 @@ function fillPhotoPopup(evt) {
   const card = evt.target.closest('.photo-grid__card');
   popupPhotoLink.src = card.querySelector('.photo-grid__photo').src;
   popupPhotoName.textContent = card.querySelector('.photo-grid__textbox').textContent;
+  popupPhotoLink.alt = popupPhotoName.textContent;
 }
 
 function submitProfile(evt) {
@@ -103,7 +104,7 @@ function addPhoto(args) {
   return card;
 }
 function renderCard(elem) {
-  cardContainer.prepend(elem);
+  cardsContainer.prepend(elem);
 }
 
 window.onload = initialCards.forEach((arg) => {
