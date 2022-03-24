@@ -24,8 +24,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-//todo: перевесить обработчик кликов по картинке на мат. элемент
-// todo: forms by document.forms.nAmE
+
 const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
 const profileInfo = profile.querySelector('.profile__description');

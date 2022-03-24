@@ -4,5 +4,8 @@
   font-size: 12px;
   line-height: 15px;
   font-weight: 400;
-  bottom: -18px;
+  padding-top: 5px;
+  z-index: 2;
+  visibility: hidden;
+  display: inline-block;
 }
