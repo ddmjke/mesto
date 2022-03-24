@@ -54,11 +54,27 @@ const cardTemplate = document.querySelector('#card-template').content;
 
 const popupsArray = Array.from(document.querySelectorAll('.pop-up'));
 
+function closeByEsc(evt, element) {
+  if (evt.key === 'Escape') {
+    const element = document.querySelector('.pop-up_active');
+    closePopup(element);
+  }
+}
+
+function closeByOverlay(evt) {
+  if (evt.target.classList.contains('pop-up')) closePopup(evt.target);
+}
+
 function openPopup(element) {
   element.classList.add('pop-up_active');
+  document.addEventListener('keydown', closeByEsc);
+  element.addEventListener('click', closeByOverlay)
 }
 function closePopup(element) {
   element.classList.remove('pop-up_active');
+  document.removeEventListener('keydown',closeByEsc);
+  element.removeEventListener('click', closeByOverlay);
+  
 }
 
 function fillEdditForm() {
@@ -144,14 +160,4 @@ popupAddForm.addEventListener('submit', (evt) => {
 popupPhotoClose.addEventListener('click', (evt) => {
   evt.preventDefault();
   closePopup(popupPhoto);
-});
-
-window.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') popupsArray.forEach((element) => closePopup(element));
-});
-
-popupsArray.forEach((element) => {
-  element.addEventListener('click',(evt) => {
-    if (evt.target.classList.contains('pop-up')) closePopup(element);
-  });
 });
