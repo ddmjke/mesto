@@ -9,7 +9,7 @@ const validateInput = (formElement, inputElement, errorClass) => {
 }
 
 const hasInvalidInput = (inputs) => {
-  return inputs.some((inputElement) => {return !inputElement.validity.valid;})
+  return inputs.some((inputElement) => {return !inputElement.validity.valid;});
 }
 
 const toggleButtonState = (button, inputs, inactiveButtonClass) => {
@@ -28,8 +28,8 @@ const setEventListeners = (formElement, uglyObject) => {
     inputElement.addEventListener('input', () => {
       validateInput(formElement, inputElement, uglyObject.errorClass);
       toggleButtonState(buttonElement, inputsArray, uglyObject.inactiveButtonClass);
-    })
-  })
+    });
+  });
 }
 
 const enableValidation = (uglyObject) => {
@@ -39,7 +39,7 @@ const enableValidation = (uglyObject) => {
       evt.preventDefault();
     });
     setEventListeners(form, uglyObject);
-  })
+  });
 }
 
 enableValidation({
@@ -49,4 +49,4 @@ enableValidation({
   inactiveButtonClass: 'pop-up__submit-button_inactive',
   inputErrorClass: 'pop-up__input-error',
   errorClass: 'pop-up__input-error_visable'
-}); 
+});
