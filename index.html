@@ -34,21 +34,33 @@
   <div class="pop-up pop-up_type_profile">
     <div class="pop-up__container">
       <h2 class="pop-up__title">Редактировать профиль</h2>
-      <form class="pop-up__form" name="ueser-info">
-        <input class="pop-up__input pop-up__input_field_name" type="text" name="user-name" placeholder="Имя" required>
-        <input class="pop-up__input pop-up__input_field_info" type="text" name="user-profession" placeholder="Род деятельности" required>
-        <button class="pop-up__submit-button" type="submit">Сохранить</button>
+      <form class="pop-up__form" name="ueser-info" novalidate>
+        <label class="pop-up__field">
+          <input class="pop-up__input pop-up__input_field_name" type="text" id="user-name" placeholder="Имя" required>
+          <span class="pop-up__input-error user-name-error">!!!</span>
+        </label>
+        <label class="pop-up__field">
+          <input class="pop-up__input pop-up__input_field_info" type="text" id="user-profession" placeholder="Род деятельности" required>
+          <span class="pop-up__input-error user-profession-error">!!!</span>
+        </label>
+        <button class="pop-up__submit-button pop-up__submit-button_inactive" type="submit">Сохранить</button>
       </form>
       <button class="pop-up__close-button" type="button"></button>
     </div>
   </div>
-
+  
   <div class="pop-up pop-up_type_place">
     <div class="pop-up__container">
       <h2 class="pop-up__title">Новое место</h2>
-      <form class="pop-up__form" name="place-form">
-        <input class="pop-up__input pop-up__input_field_place-name" type="text" name="place-name" placeholder="Название" required>
-        <input class="pop-up__input pop-up__input_field_place-link" type="text" name="place-link" placeholder="Ссылка на картинку" required>
+      <form class="pop-up__form" name="place-form" novalidate>
+        <label class="pop-up__field">
+          <input class="pop-up__input pop-up__input_field_place-name" type="text" id="place-name" placeholder="Название" required>
+          <span class="pop-up__input-error place-name-error">!!!</span>          
+        </label>
+        <label class="pop-up__field"> 
+          <input class="pop-up__input pop-up__input_field_place-link" type="url" id="place-link" placeholder="Ссылка на картинку" required>
+          <span class="pop-up__input-error place-link-error">!!!</span>          
+        </label>
         <button class="pop-up__submit-button" type="submit">Сохранить</button>
       </form>
       <button class="pop-up__close-button" type="button"></button>
