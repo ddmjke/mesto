@@ -1,3 +1,5 @@
+import Card from "./card.js";
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -103,31 +105,14 @@ function submitCard(evt) {
   }))
 }
 
-function addPhoto(args) {
-  const card = cardTemplate.querySelector('.photo-grid__card').cloneNode(true);
-  card.querySelector('.photo-grid__photo').src = args.link;
-  card.querySelector('.photo-grid__photo').alt = args.name;
-  card.querySelector('.photo-grid__textbox').textContent = args.name;
-
-  card.querySelector('.photo-grid__like-button').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('photo-grid__like-button_active');
+function renderCards(photos) {
+  photos.forEach((photo) => {
+    const card = new Card(photo.name, photo.link, '.photo-grid__card');
+    cardsContainer.append(card.generateCard());
   });
-  card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
-    card.remove(evt.target.closest('.photo-grid__card'));
-  });
-  card.querySelector('.photo-grid__photo').addEventListener('click', (evt) => {
-    fillPhotoPopup(evt);
-    openPopup(popupPhoto);
-  });
-  return card;
-}
-function renderCard(elem) {
-  cardsContainer.prepend(elem);
 }
 
-window.onload = initialCards.forEach((arg) => {
-  renderCard(addPhoto(arg));
-});
+window.onload = renderCards(initialCards);
 
 profileEdditButton.addEventListener('click',() => {
   fillEdditForm();
