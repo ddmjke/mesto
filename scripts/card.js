@@ -58,3 +58,8 @@ export default class Card {
 //   });
 //   return card;
 // }
+
+// card.querySelector('.photo-grid__photo').addEventListener('click', (evt) => {
+//   fillPhotoPopup(evt);
+//   openPopup(popupPhoto);
+// });

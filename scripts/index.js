@@ -56,6 +56,8 @@ const cardTemplate = document.querySelector('#card-template').content;
 
 const popupsArray = Array.from(document.querySelectorAll('.pop-up'));
 
+
+//============popup handlers
 function closeByEsc(evt, element) {
   if (evt.key === 'Escape') {
     const element = document.querySelector('.pop-up_active');
@@ -86,12 +88,12 @@ function fillEdditForm() {
 function resetForm(element) {
   element.reset();
 }
-function fillPhotoPopup(evt) {
-  const card = evt.target.closest('.photo-grid__card');
-  popupPhotoLink.src = card.querySelector('.photo-grid__photo').src;
-  popupPhotoName.textContent = card.querySelector('.photo-grid__textbox').textContent;
-  popupPhotoLink.alt = popupPhotoName.textContent;
-}
+// function fillPhotoPopup(evt) {
+//   const card = evt.target.closest('.photo-grid__card');
+//   popupPhotoLink.src = card.querySelector('.photo-grid__photo').src;
+//   popupPhotoName.textContent = card.querySelector('.photo-grid__textbox').textContent;
+//   popupPhotoLink.alt = popupPhotoName.textContent;
+// }
 
 function submitProfile(evt) {
   profileName.textContent = popupProfileUserName.value;
@@ -145,4 +147,10 @@ popupAddForm.addEventListener('submit', (evt) => {
 popupPhotoClose.addEventListener('click', (evt) => {
   evt.preventDefault();
   closePopup(popupPhoto);
+});
+
+cardsContainer.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('photo-grid__photo')) {
+    openPopup(popupPhoto);
+  };  
 });
