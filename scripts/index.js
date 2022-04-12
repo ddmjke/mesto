@@ -48,16 +48,12 @@ const popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link
 const cardsContainer = document.querySelector('.photo-grid');
 
 const popupPhoto = document.querySelector('.pop-up_type_photo');
-const popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
 const popupPhotoLink = popupPhoto.querySelector('.pop-up__image');
 const popupPhotoName = popupPhoto.querySelector('.pop-up__image-caption');
-
-const cardTemplate = document.querySelector('#card-template').content;
-
-const popupsArray = Array.from(document.querySelectorAll('.pop-up'));
+const popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
 
 
-//============popup handlers
+//============ popup handlers
 function closeByEsc(evt, element) {
   if (evt.key === 'Escape') {
     const element = document.querySelector('.pop-up_active');
@@ -74,6 +70,7 @@ function openPopup(element) {
   document.addEventListener('keydown', closeByEsc);
   element.addEventListener('click', closeByOverlay)
 }
+
 function closePopup(element) {
   element.classList.remove('pop-up_active');
   document.removeEventListener('keydown',closeByEsc);
@@ -85,6 +82,7 @@ function fillEdditForm() {
   popupProfileUserName.value = profileName.textContent;
   popupProfileUserInfo.value = profileInfo.textContent;
 }
+
 function resetForm(element) {
   element.reset();
 }
@@ -94,25 +92,24 @@ function submitProfile(evt) {
   profileInfo.textContent = popupProfileUserInfo.value;
 }
 
+//============== cards rendering
 function submitCard(evt) {
   renderCards({
     name: popupAddName.value,
     link: popupAddLink.value,
-  }, false);
+  });
 }
 
-function renderCards(photos, isArray) {
-  if (isArray) {photos.forEach((photo) => {
+function renderCards(...photos) {
+  photos.forEach((photo) => {
     const card = new Card(photo.name, photo.link, '.photo-grid__card');
     cardsContainer.prepend(card.generateCard());
   });
-  } else {
-    const card = new Card(photos.name, photos.link, '.photo-grid__card');
-    cardsContainer.prepend(card.generateCard());
-  }
 }
 
-window.onload = renderCards(initialCards, true);
+window.onload = renderCards(...initialCards);
+
+//=============== Listeners
 
 profileEdditButton.addEventListener('click',() => {
   fillEdditForm();
@@ -147,8 +144,5 @@ popupPhotoClose.addEventListener('click', (evt) => {
   closePopup(popupPhoto);
 });
 
-cardsContainer.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('photo-grid__photo')) {
-    openPopup(popupPhoto);
-  };  
-});
+//============= photo pop-up functionality expors
+export {openPopup, popupPhoto, popupPhotoLink, popupPhotoName};
