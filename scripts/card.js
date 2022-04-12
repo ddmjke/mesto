@@ -32,7 +32,6 @@ export default class Card {
 
   _setListeners() {
     this._card.addEventListener('click', (evt) => {
-      evt.preventDefault();
       this._fillPhotoPopup();
       openPopup(popupPhoto);
     });
@@ -43,6 +42,7 @@ export default class Card {
     this._card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
       evt.stopPropagation();
       this._card.remove();
+      this._card = null;
     });
   }
 }

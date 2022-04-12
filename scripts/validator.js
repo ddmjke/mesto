@@ -12,8 +12,7 @@ export default class FormValidator {
 
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      button.setAttribute('disabled','');
-      button.classList.add(this._keys.inactiveButtonClass);
+      this._toggleButton(button, inputs, true);
     });
     inputs.forEach((input) => {
       input.addEventListener('input', (evt) => {
@@ -23,8 +22,9 @@ export default class FormValidator {
     });
   }
 
-  _toggleButton(button, inputs) {
-    if (this._hasInvalidInputs(inputs)) {
+  _toggleButton(button, inputs, forceDisable) {
+    const condition = forceDisable || this._hasInvalidInputs(inputs);
+    if (condition) {
       button.setAttribute('disabled', '');
       button.classList.add(this._keys.inactiveButtonClass);
     } else {

@@ -1,32 +1,7 @@
 import Card from "./card.js";
 import FormValidator from "./validator.js";
+import {photoArray} from "./data.js";
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 const profile = document.querySelector('.profile');
 const profileName = profile.querySelector('.profile__name');
@@ -58,7 +33,7 @@ const forms = Array.from(document.querySelectorAll('.pop-up__form'));
 
 
 //============ popup handlers
-function closeByEsc(evt, element) {
+function closeByEsc(evt) {
   if (evt.key === 'Escape') {
     const element = document.querySelector('.pop-up_active');
     closePopup(element);
@@ -70,7 +45,6 @@ function closeByOverlay(evt) {
 }
 
 function openPopup(element) {
-  //element.querySelector('.pop-up__input').dispatchEvent(new Event('input', {bubbles:true}));
   element.classList.add('pop-up_active');
   document.addEventListener('keydown', closeByEsc);
   element.addEventListener('click', closeByOverlay)
@@ -96,27 +70,37 @@ function resetForm(element) {
   element.reset();
 }
 
-function submitProfile(evt) {
+function submitProfile() {
   profileName.textContent = popupProfileUserName.value;
   profileInfo.textContent = popupProfileUserInfo.value;
 }
 
+function submitProfileFormHandler(evt) {
+  evt.preventDefault();
+  submitProfile();
+  closePopup(popupProfile);
+}
+
 //============== cards rendering
-function submitCard(evt) {
+function submitCard() {
   renderCards({
     name: popupAddName.value,
     link: popupAddLink.value,
   });
 }
 
+function createCard(arg) {
+  const card = new Card(arg.name, arg.link, '.photo-grid__card');
+  return card.generateCard();
+}
+
 function renderCards(...photos) {
   photos.forEach((photo) => {
-    const card = new Card(photo.name, photo.link, '.photo-grid__card');
-    cardsContainer.prepend(card.generateCard());
+    cardsContainer.prepend(createCard(photo));
   });
 }
 
-window.onload = renderCards(...initialCards);
+window.onload = renderCards(...photoArray);
 
 //=============== Listeners
 
@@ -125,14 +109,9 @@ profileEdditButton.addEventListener('click',() => {
   openPopup(popupProfile);
 });
 popupProfileCloseButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
   closePopup(popupProfile);
 });
-popupProfileForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  submitProfile();
-  closePopup(popupProfile);
-});
+popupProfileForm.addEventListener('submit', submitProfileFormHandler);
 
 photoAddButton.addEventListener('click', () => {
   resetForm(popupAddForm);
