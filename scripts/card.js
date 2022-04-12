@@ -27,15 +27,34 @@ export default class Card {
     return this._card;
   }
 
-  _handleOpenPopup() {
+  _fillPhotoPopup() {
     popupPhotoLink.src = this._link;
     popupPhotoName.textContent = this._name;
     popupPhotoLink.alt = this._name;
   }
 
-  _setListeners() {
+    _setListeners() {
     this._card.addEventListener('click', () => {
-      this._handleOpenPopup();
+      this._fillPhotoPopup();
+    });
+    this._card.querySelector('.photo-grid__like-button').addEventListener('click', (evt) => {
+      evt.target.classList.toggle('photo-grid__like-button_active');
+    });
+    this._card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
+      this._card.remove();
     });
   }
 }
+
+// function addPhoto(args) {
+//   const card = cardTemplate.querySelector('.photo-grid__card').cloneNode(true);
+//   card.querySelector('.photo-grid__photo').src = args.link;
+//   card.querySelector('.photo-grid__photo').alt = args.name;
+//   card.querySelector('.photo-grid__textbox').textContent = args.name;
+
+//   card.querySelector('.photo-grid__photo').addEventListener('click', (evt) => {
+//     fillPhotoPopup(evt);
+//     openPopup(popupPhoto);
+//   });
+//   return card;
+// }
