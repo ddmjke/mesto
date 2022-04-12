@@ -45,21 +45,3 @@ export default class Card {
     });
   }
 }
-
-// function addPhoto(args) {
-//   const card = cardTemplate.querySelector('.photo-grid__card').cloneNode(true);
-//   card.querySelector('.photo-grid__photo').src = args.link;
-//   card.querySelector('.photo-grid__photo').alt = args.name;
-//   card.querySelector('.photo-grid__textbox').textContent = args.name;
-
-//   card.querySelector('.photo-grid__photo').addEventListener('click', (evt) => {
-//     fillPhotoPopup(evt);
-//     openPopup(popupPhoto);
-//   });
-//   return card;
-// }
-
-// card.querySelector('.photo-grid__photo').addEventListener('click', (evt) => {
-//   fillPhotoPopup(evt);
-//   openPopup(popupPhoto);
-// });

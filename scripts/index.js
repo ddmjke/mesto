@@ -88,12 +88,6 @@ function fillEdditForm() {
 function resetForm(element) {
   element.reset();
 }
-// function fillPhotoPopup(evt) {
-//   const card = evt.target.closest('.photo-grid__card');
-//   popupPhotoLink.src = card.querySelector('.photo-grid__photo').src;
-//   popupPhotoName.textContent = card.querySelector('.photo-grid__textbox').textContent;
-//   popupPhotoLink.alt = popupPhotoName.textContent;
-// }
 
 function submitProfile(evt) {
   profileName.textContent = popupProfileUserName.value;
@@ -101,20 +95,24 @@ function submitProfile(evt) {
 }
 
 function submitCard(evt) {
-  renderCard(addPhoto({
+  renderCards({
     name: popupAddName.value,
-    link: popupAddLink.value
-  }))
+    link: popupAddLink.value,
+  }, false);
 }
 
-function renderCards(photos) {
-  photos.forEach((photo) => {
+function renderCards(photos, isArray) {
+  if (isArray) {photos.forEach((photo) => {
     const card = new Card(photo.name, photo.link, '.photo-grid__card');
-    cardsContainer.append(card.generateCard());
+    cardsContainer.prepend(card.generateCard());
   });
+  } else {
+    const card = new Card(photos.name, photos.link, '.photo-grid__card');
+    cardsContainer.prepend(card.generateCard());
+  }
 }
 
-window.onload = renderCards(initialCards);
+window.onload = renderCards(initialCards, true);
 
 profileEdditButton.addEventListener('click',() => {
   fillEdditForm();
