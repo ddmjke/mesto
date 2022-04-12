@@ -8,3 +8,7 @@
   font-size: 14px;
   line-height: 17px;
 }
+
+.pop-up__input:focus {
+  outline: none;
+}

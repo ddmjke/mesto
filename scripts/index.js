@@ -1,4 +1,5 @@
 import Card from "./card.js";
+import Validator from "./validator.js";
 
 const initialCards = [
   {
@@ -51,6 +52,8 @@ const popupPhoto = document.querySelector('.pop-up_type_photo');
 const popupPhotoLink = popupPhoto.querySelector('.pop-up__image');
 const popupPhotoName = popupPhoto.querySelector('.pop-up__image-caption');
 const popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
+
+const forms = Array.from(document.querySelectorAll('.pop-up__form'));
 
 
 //============ popup handlers
@@ -143,6 +146,22 @@ popupPhotoClose.addEventListener('click', (evt) => {
   evt.preventDefault();
   closePopup(popupPhoto);
 });
+
+//============= validation
+function enableValidation(keys, forms) {
+  forms.forEach((form) => {
+    const validator = new Validator(keys, form);
+    validator.enable();
+  })
+}
+
+enableValidation({
+  inputSelector: '.pop-up__input',
+  submitButtonSelector: '.pop-up__submit-button',
+  inactiveButtonClass: 'pop-up__submit-button_inactive',
+  inputErrorClass: 'pop-up__input_invalid',
+  errorClass: 'pop-up__input-error_visable',
+}, forms);
 
 //============= photo pop-up functionality expors
 export {openPopup, popupPhoto, popupPhotoLink, popupPhotoName};
