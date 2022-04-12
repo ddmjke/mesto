@@ -37,6 +37,7 @@ const photoAddButton = profile.querySelector('.profile__add-button');
 const popupProfile = document.querySelector('.pop-up_type_profile');
 const popupProfileCloseButton = popupProfile.querySelector('.pop-up__close-button');
 const popupProfileForm = popupProfile.querySelector('.pop-up__form');
+const popupProfileInputs = Array.from(popupProfile.querySelectorAll('.pop-up__input'));
 const popupProfileUserName = popupProfileForm.querySelector('.pop-up__input_field_name');
 const popupProfileUserInfo = popupProfileForm.querySelector('.pop-up__input_field_info');
 
@@ -69,6 +70,7 @@ function closeByOverlay(evt) {
 }
 
 function openPopup(element) {
+  //element.querySelector('.pop-up__input').dispatchEvent(new Event('input', {bubbles:true}));
   element.classList.add('pop-up_active');
   document.addEventListener('keydown', closeByEsc);
   element.addEventListener('click', closeByOverlay)
@@ -81,9 +83,13 @@ function closePopup(element) {
   
 }
 
+//forcing validation here by input event
 function fillEdditForm() {
   popupProfileUserName.value = profileName.textContent;
   popupProfileUserInfo.value = profileInfo.textContent;
+  popupProfileInputs.forEach((input) => {
+    input.dispatchEvent(new Event('input', {bubbles:true}))
+  });
 }
 
 function resetForm(element) {
