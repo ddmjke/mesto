@@ -1,5 +1,5 @@
 import Card from "./card.js";
-import Validator from "./validator.js";
+import FormValidator from "./validator.js";
 
 const initialCards = [
   {
@@ -156,7 +156,7 @@ popupPhotoClose.addEventListener('click', (evt) => {
 //============= validation
 function enableValidation(keys, forms) {
   forms.forEach((form) => {
-    const validator = new Validator(keys, form);
+    const validator = new FormValidator(keys, form);
     validator.enable();
   })
 }
