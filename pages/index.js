@@ -1,6 +1,6 @@
-import Card from "./card.js";
-import FormValidator from "./validator.js";
-import {photoArray} from "./data.js";
+import Card from "../components/card.js";
+import FormValidator from "../components/validator.js";
+import {photoArray} from "../utils/data.js";
 
 
 const profile = document.querySelector('.profile');
