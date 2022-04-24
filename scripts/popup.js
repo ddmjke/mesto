@@ -40,3 +40,23 @@ class PopupWithImage extends Popup {
     Popup.open();
   }
 }
+
+class PopupWithForm extends Popup {
+  constructor(selectorString, submitForm) {
+    super(selectorString);
+    this._submitFrom = submitForm;
+  }
+
+  _getInputValues(){
+    //
+    //-----WHAT?
+    //
+    inputs = Array.from(this._element.querySelectorAll('.pop-up__input'));
+  }
+
+  _setEventListeners(){
+    //-----legal?
+    Popup._setEventListeners();
+    this._element.addEventListener('submit', submitForm);
+  }
+}
