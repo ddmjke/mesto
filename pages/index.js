@@ -70,11 +70,11 @@ function closeByOverlay(evt) {
   if (evt.target.classList.contains('pop-up')) closePopup(evt.target);
 }
 
-function openPopup(element) {
-  element.classList.add('pop-up_active');
-  document.addEventListener('keydown', closeByEsc);
-  element.addEventListener('click', closeByOverlay)
-}
+// function openPopup(element) {
+//   element.classList.add('pop-up_active');
+//   document.addEventListener('keydown', closeByEsc);
+//   element.addEventListener('click', closeByOverlay)
+// }
 
 function closePopup(element) {
   element.classList.remove('pop-up_active');
@@ -110,6 +110,7 @@ function submitProfileFormHandler(evt) {
 //============== cards rendering
 
 const photoPopup = new PopupWithImage('.pop-up_type_photo');
+const profilePopup = new PopupWithForm('.pop-up_type_profile');
 
 const photoContainer = new Section(
   {
@@ -153,27 +154,26 @@ photoContainer.renderAll();
 //=============== Listeners
 
 profileEdditButton.addEventListener('click',() => {
-  fillEdditForm();
-  openPopup(popupProfile);
+  profilePopup.open();
 });
-popupProfileCloseButton.addEventListener('click', (evt) => {
-  closePopup(popupProfile);
-});
-popupProfileForm.addEventListener('submit', submitProfileFormHandler);
+// popupProfileCloseButton.addEventListener('click', (evt) => {
+//   closePopup(popupProfile);
+// });
+// popupProfileForm.addEventListener('submit', submitProfileFormHandler);
 
-photoAddButton.addEventListener('click', () => {
-  resetForm(popupAddForm);
-  openPopup(popupAdd);
-});
-popupAddCloseButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  closePopup(popupAdd);
-});
-popupAddForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  submitCard();
-  closePopup(popupAdd);
-});
+// photoAddButton.addEventListener('click', () => {
+//   resetForm(popupAddForm);
+//   openPopup(popupAdd);
+// });
+// popupAddCloseButton.addEventListener('click', (evt) => {
+//   evt.preventDefault();
+//   closePopup(popupAdd);
+// });
+// popupAddForm.addEventListener('submit', (evt) => {
+//   evt.preventDefault();
+//   submitCard();
+//   closePopup(popupAdd);
+// });
 
 //============= validation
 function enableValidation(keys, forms) {

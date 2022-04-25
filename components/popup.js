@@ -4,8 +4,8 @@ class Popup {
   constructor(selectorString) {
     this._selector = selectorString;
     this._element = document.querySelector(this._selector);
-    this._clickListener = this._handleClick.bind(this);
-    this._keydownListener = this._handleEscClose.bind(this);
+    this._handleClick = this._handleClick.bind(this);
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
@@ -29,13 +29,13 @@ class Popup {
   }
 
   _setEventListeners() {
-    document.addEventListener('keydown', this._keydownListener);
-    this._element.addEventListener('click', this._clickListener);
+    document.addEventListener('keydown', this._handleEscClose);
+    this._element.addEventListener('click', this._handleClick);
   }
   
   _removeEventListeners() {
-    document.removeEventListener('keydown', this._keydownListener);
-    this._element.removeEventListener('click', this._clickListener);
+    document.removeEventListener('keydown', this._handleEscClose);
+    this._element.removeEventListener('click', this._handleClick);
   }
 }
 
@@ -68,8 +68,7 @@ class PopupWithForm extends Popup {
   }
 
   _setEventListeners(){
-    //-----legal?
-    Popup._setEventListeners();
+    super._setEventListeners();
     this._element.addEventListener('submit', submitForm);
   }
 }
