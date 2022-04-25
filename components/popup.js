@@ -1,3 +1,5 @@
+export {Popup, PopupWithImage, PopupWithForm};
+
 class Popup {
   constructor(selectorString) {
     this._selector = selectorString;
@@ -37,7 +39,7 @@ class PopupWithImage extends Popup {
     this._image.src = link;
     this._image.alt = name;
     this._name.textContent = name;
-    Popup.open();
+    super.open();
   }
 }
 

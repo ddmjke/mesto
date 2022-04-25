@@ -2,6 +2,8 @@ import Card from "../components/card.js";
 import FormValidator from "../components/validator.js";
 import {photoArray} from "../utils/constants.js";
 import Section from '../components/section.js'
+import {Popup, PopupWithImage, PopupWithForm} from '../components/popup.js'
+
 
 import {profile,
   profileName,
@@ -107,11 +109,19 @@ function submitProfileFormHandler(evt) {
 
 //============== cards rendering
 
+const photoPopup = new PopupWithImage('.pop-up_type_photo');
+
 const photoContainer = new Section(
   {
     items: photoArray,
     render: (photo) => {
-      const card = new Card({name: photo.name, link: photo.link}, '.photo-grid__card');
+      const card = new Card(
+        {
+          name: photo.name,
+          link: photo.link,
+          handleClick: () => {photoPopup.open(photo.link, photo.name)},
+        },
+        '.photo-grid__card');
       return card.generateCard();
     }
   },
