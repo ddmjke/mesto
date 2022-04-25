@@ -1,8 +1,10 @@
-class Section {
+import Card from "./card.js";
+
+export default class Section {
   constructor({items, render}, containerSelectorString){
     this._items = items;
     this._render = render;
-    this._selector = containerSelectorString;
+    this._container = document.querySelector(containerSelectorString);
   }
 
   renderAll() {
@@ -13,6 +15,6 @@ class Section {
   }
 
   addItem(elem) {
-    document.querySelector(this._selector).append(elem);
+    this._container.append(elem);
   }
 }

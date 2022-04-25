@@ -1,35 +1,59 @@
 import Card from "../components/card.js";
 import FormValidator from "../components/validator.js";
-import {photoArray} from "../utils/data.js";
+import {photoArray} from "../utils/constants.js";
+import Section from '../components/section.js'
 
+import {profile,
+  profileName,
+  profileInfo,
+  profileEdditButton,
+  photoAddButton,
+  popupProfile,
+  popupProfileCloseButton,
+  popupProfileForm,
+  popupProfileInputs,
+  popupProfileUserName,
+  popupProfileUserInfo,
+  popupAdd,
+  popupAddCloseButton,
+  popupAddForm,
+  popupAddName,
+  popupAddLink,
+  cardsContainer,
+  popupPhoto,
+  popupPhotoLink,
+  popupPhotoName,
+  popupPhotoClose,
+  forms,
+} from '../utils/constants.js';
 
-const profile = document.querySelector('.profile');
-const profileName = profile.querySelector('.profile__name');
-const profileInfo = profile.querySelector('.profile__description');
-const profileEdditButton = profile.querySelector('.profile__eddit-button');
-const photoAddButton = profile.querySelector('.profile__add-button');
+// const profile = document.querySelector('.profile');
+// const profileName = profile.querySelector('.profile__name');
+// const profileInfo = profile.querySelector('.profile__description');
+// const profileEdditButton = profile.querySelector('.profile__eddit-button');
+// const photoAddButton = profile.querySelector('.profile__add-button');
 
-const popupProfile = document.querySelector('.pop-up_type_profile');
-const popupProfileCloseButton = popupProfile.querySelector('.pop-up__close-button');
-const popupProfileForm = popupProfile.querySelector('.pop-up__form');
-const popupProfileInputs = Array.from(popupProfile.querySelectorAll('.pop-up__input'));
-const popupProfileUserName = popupProfileForm.querySelector('.pop-up__input_field_name');
-const popupProfileUserInfo = popupProfileForm.querySelector('.pop-up__input_field_info');
+// const popupProfile = document.querySelector('.pop-up_type_profile');
+// const popupProfileCloseButton = popupProfile.querySelector('.pop-up__close-button');
+// const popupProfileForm = popupProfile.querySelector('.pop-up__form');
+// const popupProfileInputs = Array.from(popupProfile.querySelectorAll('.pop-up__input'));
+// const popupProfileUserName = popupProfileForm.querySelector('.pop-up__input_field_name');
+// const popupProfileUserInfo = popupProfileForm.querySelector('.pop-up__input_field_info');
 
-const popupAdd = document.querySelector('.pop-up_type_place');
-const popupAddCloseButton = popupAdd.querySelector('.pop-up__close-button');
-const popupAddForm = popupAdd.querySelector('.pop-up__form');
-const popupAddName = popupAddForm.querySelector('.pop-up__input_field_place-name');
-const popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link');
+// const popupAdd = document.querySelector('.pop-up_type_place');
+// const popupAddCloseButton = popupAdd.querySelector('.pop-up__close-button');
+// const popupAddForm = popupAdd.querySelector('.pop-up__form');
+// const popupAddName = popupAddForm.querySelector('.pop-up__input_field_place-name');
+// const popupAddLink = popupAddForm.querySelector('.pop-up__input_field_place-link');
 
-const cardsContainer = document.querySelector('.photo-grid');
+// const cardsContainer = document.querySelector('.photo-grid');
 
-const popupPhoto = document.querySelector('.pop-up_type_photo');
-const popupPhotoLink = popupPhoto.querySelector('.pop-up__image');
-const popupPhotoName = popupPhoto.querySelector('.pop-up__image-caption');
-const popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
+// const popupPhoto = document.querySelector('.pop-up_type_photo');
+// const popupPhotoLink = popupPhoto.querySelector('.pop-up__image');
+// const popupPhotoName = popupPhoto.querySelector('.pop-up__image-caption');
+// const popupPhotoClose = popupPhoto.querySelector('.pop-up__close-button');
 
-const forms = Array.from(document.querySelectorAll('.pop-up__form'));
+// const forms = Array.from(document.querySelectorAll('.pop-up__form'));
 
 
 //============ popup handlers
@@ -82,25 +106,39 @@ function submitProfileFormHandler(evt) {
 }
 
 //============== cards rendering
-function submitCard() {
-  renderCards({
-    name: popupAddName.value,
-    link: popupAddLink.value,
-  });
-}
 
-function createCard(arg) {
-  const card = new Card(arg.name, arg.link, '.photo-grid__card');
-  return card.generateCard();
-}
+const photoContainer = new Section(
+  {
+    items: photoArray,
+    render: (photo) => {
+      const card = new Card({name: photo.name, link: photo.link}, '.photo-grid__card');
+      return card.generateCard();
+    }
+  },
+  '.photo-grid'
+);
 
-function renderCards(...photos) {
-  photos.forEach((photo) => {
-    cardsContainer.prepend(createCard(photo));
-  });
-}
+photoContainer.renderAll();
 
-window.onload = renderCards(...photoArray);
+// function submitCard() {
+//   renderCards({
+//     name: popupAddName.value,
+//     link: popupAddLink.value,
+//   });
+// }
+
+// function createCard(arg) {
+//   const card = new Card({name: arg.name, link: arg.link}, '.photo-grid__card');
+//   return card.generateCard();
+// }
+
+// function renderCards(...photos) {
+//   photos.forEach((photo) => {
+//     cardsContainer.prepend(createCard(photo));
+//   });
+// }
+
+// window.onload = renderCards(...photoArray);
 
 //=============== Listeners
 
