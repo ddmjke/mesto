@@ -15,16 +15,19 @@ class Popup {
     this._element.classList.remove('pop-up_active');
   }
 
-  _handleEscClose(event) {
+  _handleEscClose(evt) {
     if (evt.key === 'Escape') {
-      this._close(this._element);
+      this.close();
     }
   }
 
+  _handleClick(evt) {
+    if (evt.target.classList.contains('pop-up') || evt.target.classList.contains('pop-up__close-button')) this.close();
+  }
+
   _setEventListeners() {
-    document.addEventListener('keydown', this._handleEscClose);
-    const button = this._element.querySelector('.pop-up__close-button');
-    button.addEventListener('click', this._close);
+    document.addEventListener('keydown', this._handleEscClose.bind(this));
+    this._element.addEventListener('click', this._handleClick.bind(this));
   }
 }
 

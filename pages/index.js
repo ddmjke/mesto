@@ -175,11 +175,6 @@ popupAddForm.addEventListener('submit', (evt) => {
   closePopup(popupAdd);
 });
 
-popupPhotoClose.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  closePopup(popupPhoto);
-});
-
 //============= validation
 function enableValidation(keys, forms) {
   forms.forEach((form) => {
@@ -195,6 +190,3 @@ enableValidation({
   inputErrorClass: 'pop-up__input_invalid',
   errorClass: 'pop-up__input-error_visable',
 }, forms);
-
-//============= photo pop-up functionality expors
-export {openPopup, popupPhoto, popupPhotoLink, popupPhotoName};
