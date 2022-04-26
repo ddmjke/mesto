@@ -25,7 +25,8 @@ class Popup {
   }
 
   _handleClick(evt) {
-    if (evt.target.classList.contains('pop-up') || evt.target.classList.contains('pop-up__close-button')) this.close();
+    if (evt.target.classList.contains('pop-up')
+        || evt.target.classList.contains('pop-up__close-button'))this.close();
   }
 
   _setEventListeners() {
