@@ -1,4 +1,4 @@
-export default class SubmitForm {
+export default class submitHandler {
   constructor({formSelector, handleSubmit}) {
     this._formSelector = formSelector;
     this._handleSubmit = handleSubmit;
@@ -31,7 +31,7 @@ export default class SubmitForm {
     this._inputs = this._element.querySelectorAll('.pop-up__input');
     this._formValue = {};
     this._inputs.forEach(element => {
-      this._formValue[element.name] = element.value;
+      this._formValue[element.id] = element.value;
     });
     return this._formValue;
   }

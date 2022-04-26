@@ -1,6 +1,4 @@
-export {Popup, PopupWithImage, PopupWithForm};
-
-class Popup {
+export default class Popup {
   constructor(selectorString) {
     this._selector = selectorString;
     this._element = document.querySelector(this._selector);
@@ -37,39 +35,5 @@ class Popup {
   _removeEventListeners() {
     document.removeEventListener('keydown', this._handleEscClose);
     this._element.removeEventListener('click', this._handleClick);
-  }
-}
-
-class PopupWithImage extends Popup {
-  constructor(selectorString) {
-    super(selectorString);
-    this._image = this._element.querySelector('.pop-up__image');
-    this._name = this._element.querySelector('.pop-up__image-caption');
-  }
-
-  open(link, name) {
-    this._image.src = link;
-    this._image.alt = name;
-    this._name.textContent = name;
-    super.open();
-  }
-}
-
-class PopupWithForm extends Popup {
-  constructor(selectorString, submitForm) {
-    super(selectorString);
-    this._submitFrom = submitForm;
-  }
-
-  _getInputValues(){
-    //
-    //-----WHAT?
-    //
-    inputs = Array.from(this._element.querySelectorAll('.pop-up__input'));
-  }
-
-  _setEventListeners(){
-    super._setEventListeners();
-    this._element.addEventListener('submit', submitForm);
   }
 }

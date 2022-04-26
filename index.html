@@ -36,11 +36,11 @@
       <h2 class="pop-up__title">Редактировать профиль</h2>
       <form class="pop-up__form" name="ueser-info" novalidate>
         <label class="pop-up__field">
-          <input class="pop-up__input pop-up__input_field_name" type="text" id="user-name" placeholder="Имя" required minlength="2" maxlength="40">
+          <input class="pop-up__input pop-up__input_field_name" name="user-name" type="text" id="user-name" placeholder="Имя" required minlength="2" maxlength="40">
           <span class="pop-up__input-error user-name-error">!!!</span>
         </label>
         <label class="pop-up__field">
-          <input class="pop-up__input pop-up__input_field_info" type="text" id="user-profession" placeholder="Род деятельности" required minlength="2" maxlength="200">
+          <input class="pop-up__input pop-up__input_field_info" name="user-profession" type="text" id="user-profession" placeholder="Род деятельности" required minlength="2" maxlength="200">
           <span class="pop-up__input-error user-profession-error">!!!</span>
         </label>
         <button class="pop-up__submit-button" type="submit" disabled>Сохранить</button>
@@ -54,12 +54,12 @@
       <h2 class="pop-up__title">Новое место</h2>
       <form class="pop-up__form" name="place-form" novalidate>
         <label class="pop-up__field">
-          <input class="pop-up__input pop-up__input_field_place-name" type="text" id="place-name" placeholder="Название" required minlength="2" maxlength="30">
-          <span class="pop-up__input-error place-name-error">!!!</span>          
+          <input class="pop-up__input pop-up__input_field_place-name" type="text" id="name" placeholder="Название" required minlength="2" maxlength="30">
+          <span class="pop-up__input-error name-error">!!!</span>          
         </label>
         <label class="pop-up__field"> 
-          <input class="pop-up__input pop-up__input_field_place-link" type="url" id="place-link" placeholder="Ссылка на картинку" required>
-          <span class="pop-up__input-error place-link-error">!!!</span>          
+          <input class="pop-up__input pop-up__input_field_place-link" type="url" id="link" placeholder="Ссылка на картинку" required>
+          <span class="pop-up__input-error link-error">!!!</span>          
         </label>
         <button class="pop-up__submit-button" type="submit" disabled>Сохранить</button>
       </form>

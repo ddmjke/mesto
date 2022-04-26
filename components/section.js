@@ -1,5 +1,3 @@
-import Card from "./card.js";
-
 export default class Section {
   constructor({items, render}, containerSelectorString){
     this._items = items;
@@ -8,13 +6,11 @@ export default class Section {
   }
 
   renderAll() {
-    this._items.forEach(element => {
-      const nodeInstance = this._render(element);
-      this.addItem(nodeInstance);
-    });
+    this._items.forEach(element => this.addItem(element));
   }
 
   addItem(elem) {
-    this._container.append(elem);
+    const nodeInstance = this._render(elem);
+    this._container.prepend(nodeInstance);
   }
 }
