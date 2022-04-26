@@ -1,10 +1,10 @@
 import Card from "../components/card.js";
 import FormValidator from "../components/validator.js";
-import {photoArray} from "../utils/constants.js";
 import Section from '../components/section.js'
 import UserInfo from '../components/userinfo.js'
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import {photoArray} from "../utils/constants.js";
 import {profile,
   profileName,
   profileInfo,
@@ -59,8 +59,6 @@ const profilePopup = new PopupWithForm({
   inputsFiller: profileObject.getUserInfo,
 });
 
-
-  
 photoContainer.renderAll();
   
 const addPopup = new PopupWithForm({
