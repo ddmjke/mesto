@@ -1,6 +1,3 @@
-import {popupPhoto, popupPhotoLink, popupPhotoName} from '../utils/constants.js';
-// import { openPopup } from '../pages/index.js';
-
 export default class Card {
   constructor({name, link, handleClick}, cardSelector) {
     this._name = name;
@@ -26,12 +23,6 @@ export default class Card {
     return newNode;
   }
   
-  _fillPhotoPopup() {
-    popupPhotoLink.src = this._link;
-    popupPhotoName.textContent = this._name;
-    popupPhotoLink.alt = this._name;
-  }
-
   _setListeners() {
     this._card.addEventListener('click', evt => this._handleClick(evt));
     this._card.querySelector('.photo-grid__like-button').addEventListener('click', (evt) => {

@@ -6,28 +6,10 @@ import Section from '../components/section.js'
 import UserInfo from '../components/userinfo.js'
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import {photoArray} from "../utils/constants.js";
-import {profile,
-  profileName,
-  profileInfo,
+import {
+  photoArray,
   profileEdditButton,
   photoAddButton,
-  popupProfile,
-  popupProfileCloseButton,
-  popupProfileForm,
-  popupProfileInputs,
-  popupProfileUserName,
-  popupProfileUserInfo,
-  popupAdd,
-  popupAddCloseButton,
-  popupAddForm,
-  popupAddName,
-  popupAddLink,
-  cardsContainer,
-  popupPhoto,
-  popupPhotoLink,
-  popupPhotoName,
-  popupPhotoClose,
   forms,
 } from '../utils/constants.js';
 
