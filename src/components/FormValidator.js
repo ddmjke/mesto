@@ -2,6 +2,8 @@ export default class FormValidator {
   constructor(keys, formElement) {
     this._keys = keys;
     this._form = formElement;
+    this._inputs = Array.from(this._form.querySelectorAll(this._keys.inputSelector));
+    this.hideInputErrors = this.hideInputErrors.bind(this);
   }
   
   enable() {
@@ -33,9 +35,9 @@ export default class FormValidator {
     }
   }
 
-  _validateInput(input) {
+  _validateInput(input, forceValid) {
     const errorElement = this._form.querySelector(`.${input.id}-error`);
-    if (input.validity.valid) {
+    if (input.validity.valid || forceValid) {
       errorElement.classList.remove(this._keys.errorClass);
       input.classList.remove(this._keys.inputErrorClass);
     } else {
@@ -47,5 +49,11 @@ export default class FormValidator {
 
   _hasInvalidInputs(inputs) {
     return inputs.some((input) => {return !input.validity.valid});
+  }
+
+  //============ public method to hide input errors when form just opened
+
+  hideInputErrors() {
+    this._inputs.forEach(input => this._validateInput(input, true));
   }
 }

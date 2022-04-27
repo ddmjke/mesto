@@ -1,10 +1,11 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor({selectorString, submitHandler, inputsFiller}) {
+  constructor({selectorString, submitHandler, inputsFiller, validityHider}) {
     super(selectorString);
     this._submitHandler = submitHandler;
     this._inputsFiller = inputsFiller || '';
+    this._validityHider = validityHider;
     this._inputs = this._element.querySelectorAll('.pop-up__input');
     this._form = this._element.querySelector('.pop-up__form');
 
@@ -36,19 +37,18 @@ export default class PopupWithForm extends Popup {
   }
   
 
-  //for form with fill method: forcing validation after setting new input values
   _setInputValues() {
     if (this._inputsFiller)
     {
       this._inputs.forEach(input => {
         input.value = this._inputsFiller()[input.id];
-        input.dispatchEvent(new Event('input', {bubbles: true}));
       });
     }
   }
 
   open() {
     this._setInputValues();
+    this._validityHider();
     super.open();
   }
 

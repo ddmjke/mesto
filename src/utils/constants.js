@@ -2,7 +2,6 @@ export {
   photoArray,
   profileEdditButton,
   photoAddButton,
-  forms,
 };
 
 const photoArray = [
@@ -36,5 +35,4 @@ const photoArray = [
 const profile = document.querySelector('.profile');
 const profileEdditButton = profile.querySelector('.profile__eddit-button');
 const photoAddButton = profile.querySelector('.profile__add-button');
-const forms = Array.from(document.querySelectorAll('.pop-up__form'));
 
