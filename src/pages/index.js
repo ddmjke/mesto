@@ -1,9 +1,9 @@
 import './index.css';
 
-import Card from "../components/card.js";
-import FormValidator from "../components/validator.js";
-import Section from '../components/section.js'
-import UserInfo from '../components/userinfo.js'
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from '../components/Section.js'
+import UserInfo from '../components/UserInfo.js'
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import {
