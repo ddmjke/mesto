@@ -6,6 +6,7 @@ export default class PopupWithForm extends Popup {
     this._submitHandler = submitHandler;
     this._inputsFiller = inputsFiller || '';
     this._inputs = this._element.querySelectorAll('.pop-up__input');
+    this._form = this._element.querySelector('.pop-up__form');
 
     this._submitHandleFunction = this._submitHandleFunction.bind(this);
   }
@@ -43,13 +44,16 @@ export default class PopupWithForm extends Popup {
         input.value = this._inputsFiller()[input.id];
         input.dispatchEvent(new Event('input', {bubbles: true}));
       });
-    } else {
-      this._element.querySelector('.pop-up__form').reset();
     }
   }
 
   open() {
     this._setInputValues();
     super.open();
+  }
+
+  close() {
+    this._form.reset();
+    super.close();
   }
 }
