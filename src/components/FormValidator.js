@@ -3,23 +3,23 @@ export default class FormValidator {
     this._keys = keys;
     this._form = formElement;
     this._inputs = Array.from(this._form.querySelectorAll(this._keys.inputSelector));
-    this.hideInputErrors = this.hideInputErrors.bind(this);
+    this._button = this._form.querySelector(this._keys.submitButtonSelector);
   }
   
   enable() {
-    const inputs = Array.from(this._form.querySelectorAll(this._keys.inputSelector));
-    const button = this._form.querySelector(this._keys.submitButtonSelector);
-
-    this._toggleButton(button, inputs);
-
+    this._toggleButton(this._button, this._inputs);
+    this._setListeners();
+  }
+  
+  _setListeners() {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._toggleButton(button, inputs, true);
+      this._toggleButton(this._button, this._inputs, true);
     });
-    inputs.forEach((input) => {
+    this._inputs.forEach((input) => {
       input.addEventListener('input', (evt) => {
         this._validateInput(input);
-        this._toggleButton(button, inputs);
+        this._toggleButton(this._button, this._inputs);
       })
     });
   }
