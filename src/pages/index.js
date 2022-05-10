@@ -7,10 +7,11 @@ import UserInfo from '../components/UserInfo.js'
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import {
-  photoArray,
   profileEdditButton,
   photoAddButton,
 } from '../utils/constants.js';
+import Api from '../components/Api';
+import { coghortUrl, token } from '../utils/autorization';
 
 //============= validation
 const formValidators = {}
@@ -36,15 +37,20 @@ enableValidation(
 );
 
 //=============  functionality objects initialization
+const mestoApi = new Api({coghortUrl, token});
 
 const profileObject = new UserInfo({
   nameSelector: '.profile__name',
-  infoSelector: '.profile__description'
+  infoSelector: '.profile__description',
+  picSelector: '.profile__avatar'
 });
+
+mestoApi.getUser()
+  .then(info => profileObject.setUserInfo(info))
+  .catch(_ => console.log(_, '<==='));
 
 const photoContainer = new Section(
   {
-    items: photoArray,
     render: (photo) => {
       const card = new Card(
         {
@@ -59,8 +65,14 @@ const photoContainer = new Section(
   '.photo-grid'
 );
 
+mestoApi.getCards()
+  .then( cards => photoContainer.renderAll(cards))
+  .catch(_ => console.log(_))
+  .finally(_ => console.log('finally!'))
+    
+    
 const photoPopup = new PopupWithImage('.pop-up_type_photo');
-
+    
 const profilePopup = new PopupWithForm({
   selectorString:'.pop-up_type_profile',
   submitHandler: profileObject.setUserInfo,
@@ -68,7 +80,7 @@ const profilePopup = new PopupWithForm({
   validityHider: () => formValidators['user-info'].hideInputErrors(),
 });
 
-photoContainer.renderAll();
+
   
 const addPopup = new PopupWithForm({
   selectorString:'.pop-up_type_place',
@@ -80,6 +92,8 @@ const addPopup = new PopupWithForm({
 
 photoAddButton.addEventListener('click', _ => addPopup.open());
 profileEdditButton.addEventListener('click', _ => profilePopup.open())
+
+
 
 
 
