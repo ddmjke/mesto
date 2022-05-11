@@ -11,8 +11,8 @@ export default class Section {
     this._items.forEach(element => this.addItem(element));
   }
 
-  addItem(elem) {
-    const nodeInstance = this._render(elem);
+  addItem(arg) {
+    const nodeInstance = this._render(arg);
     this._container.prepend(nodeInstance);
   }
 }

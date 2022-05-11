@@ -65,6 +65,7 @@ const photoContainer = new Section(
           cardId: photo._id,
           toggleLike: mestoApi.toggleLike,
           handleClick: () => {photoPopup.open(photo.link, photo.name)},
+          handleDelete: mestoApi.deleteCard,
         },
         '.photo-grid__card');
       return card.generateCard();
@@ -96,7 +97,11 @@ const avatarPopup = new PopupWithForm({
   
 const addPopup = new PopupWithForm({
   selectorString:'.pop-up_type_place',
-  submitHandler: (arg) => {photoContainer.addItem(arg)},
+  submitHandler: (arg) => {
+    const card = mestoApi.setCard(arg)
+      .then(res => res.json())
+      .then(res => photoContainer.addItem(res));
+  },
   validityHider: () => formValidators['place-form'].hideInputErrors(),
 });
 

@@ -75,4 +75,25 @@ export default class Api {
       body: JSON.stringify(arg),
     });
   }
+
+  setCard(card) {
+    return fetch(`${coghortUrl}/cards`, {
+      method: 'POST',
+      headers: {
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(card),
+    })
+  }
+
+  deleteCard(cardId) {
+    fetch(`${coghortUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+    });
+  }
 }
