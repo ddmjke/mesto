@@ -54,7 +54,6 @@ mestoApi.getUser()
 const photoContainer = new Section(
   {
     render: (photo) => {
-      console.log(photo)
       const card = new Card(
         {
           name: photo.name,
@@ -98,9 +97,20 @@ const avatarPopup = new PopupWithForm({
 const addPopup = new PopupWithForm({
   selectorString:'.pop-up_type_place',
   submitHandler: (arg) => {
+    addPopup.pending();
     const card = mestoApi.setCard(arg)
-      .then(res => res.json())
-      .then(res => photoContainer.addItem(res));
+      .then(res => {
+        if (res.ok) res.json()
+          else return Promise.reject(`HTTP error: ${res.status}`);
+      })
+      .then(res => {
+        photoContainer.addItem(res);
+        addPopup.close();
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        addPopup.pending();
+      });
   },
   validityHider: () => formValidators['place-form'].hideInputErrors(),
 });

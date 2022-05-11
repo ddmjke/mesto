@@ -20,7 +20,6 @@ export default class PopupWithForm extends Popup {
   _submitHandleFunction(evt) {
     evt.preventDefault();
     this._submitHandler(this._getInputValues());
-    this.close();
   }
 
   _removeEventListeners() {
@@ -55,5 +54,9 @@ export default class PopupWithForm extends Popup {
   close() {
     this._form.reset();
     super.close();
+  }
+
+  pending() {
+    this._form.querySelector('.pop-up__submit-button').classList.toggle('pop-up__submit-button_pending');
   }
 }
