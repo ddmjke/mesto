@@ -22,6 +22,10 @@
 @import url(../blocks/photo-grid/__like-button/_active/photo-grid__like-button_active.css);
 @import url(../blocks/photo-grid/__textbox/photo-grid__textbox.css);
 @import url(../blocks/photo-grid/__remove-button/photo-grid__remove-button.css);
+@import url(../blocks/photo-grid/__remove-button/_visible/photo-grid__remove-button_visible.css);
+@import url(../blocks/photo-grid/__likewrapper/photo-grid__likewrapper.css);
+@import url(../blocks/photo-grid/__likewrapper/photo-grid__likewrapper.css);
+@import url(../blocks/photo-grid/__likes/photo-grid__likes.css);
 
 @import url(../blocks/pop-up/pop-up.css);
 @import url(../blocks/pop-up/_active/pop-up_active.css);

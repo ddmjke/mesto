@@ -1,7 +1,15 @@
 export default class Card {
-  constructor({name, link, handleClick}, cardSelector) {
+  constructor({name, link, likes, isLiked, isSalfe, cardId, toggleLike, handleClick}, cardSelector) {
     this._name = name;
     this._link = link;
+
+    this._likes = likes;
+    this._isLiked = isLiked;
+    this._self = isSalfe;
+
+    this._id = cardId;
+    this._toggleLike = toggleLike;
+
     this._handleClick = handleClick;
     this._cardSelector = cardSelector;
   }
@@ -11,6 +19,12 @@ export default class Card {
     this._card.querySelector('.photo-grid__photo').src = this._link;
     this._card.querySelector('.photo-grid__photo').alt = this._name;
     this._card.querySelector('.photo-grid__textbox').textContent = this._name;
+    this._likeButton = this._card.querySelector('.photo-grid__like-button');
+    this._likesElement = this._card.querySelector('.photo-grid__likes');
+
+    if (this._self) this._card.querySelector('.photo-grid__remove-button').classList.add('photo-grid__remove-button_visible');
+    if (this._isLiked) this._likeButton.classList.add('photo-grid__like-button_active');
+    this._likesElement.textContent = this._likes;
     this._setListeners();
     return this._card;
   }
@@ -25,14 +39,29 @@ export default class Card {
   
   _setListeners() {
     this._card.addEventListener('click', evt => this._handleClick(evt));
-    this._card.querySelector('.photo-grid__like-button').addEventListener('click', (evt) => {
+    this._likeButton.addEventListener('click', (evt) => {
       evt.stopPropagation();
-      evt.target.classList.toggle('photo-grid__like-button_active');
+      this._handleLikeButton();
     });
-    this._card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
+    if (this._self) this._card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
       evt.stopPropagation();
       this._card.remove();
       this._card = null;
     });
+  }
+
+  _handleLikeButton() {
+    this._toggleLike(this._id, this._isLiked)
+      .then(res => {
+        if (res.ok) {return res.json()}
+          else return Promise.reject('<++++++++++>');
+      })
+      .then(card => {
+        this._isLiked = !this._isLiked;
+        this._likeButton.classList.toggle('photo-grid__like-button_active');
+        this._likes = card.likes.length;
+        this._likesElement.textContent = card.likes.length;
+      })
+      .catch(err => console.log(err));
   }
 }

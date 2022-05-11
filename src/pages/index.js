@@ -52,15 +52,21 @@ mestoApi.getUser()
 const photoContainer = new Section(
   {
     render: (photo) => {
+      console.log(photo)
       const card = new Card(
         {
           name: photo.name,
           link: photo.link,
+          likes: photo.likes.length,
+          isLiked: photo.likes.some(user => mestoApi.isMe(user)),
+          isSalfe: mestoApi.isMe(photo.owner),
+          cardId: photo._id,
+          toggleLike: mestoApi.toggleLike,
           handleClick: () => {photoPopup.open(photo.link, photo.name)},
         },
         '.photo-grid__card');
-        return card.generateCard();
-      }
+      return card.generateCard();
+    }
   },
   '.photo-grid'
 );

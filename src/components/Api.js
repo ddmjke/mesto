@@ -24,12 +24,16 @@ export default class Api {
       info['user-name'] = arg.name;
       info['user-profession'] = arg.about;
       info['user-pic'] = arg.avatar;
+      this._id = arg._id;
       return info;
     });
   }
 
+  isMe(user) {
+    return user._id == this._id
+  }
+
   setUser(info) {
-    console.log(coghortUrl)
     const arg = {};
     arg.name = info['user-name'];
     arg.about = info['user-profession'];
@@ -42,4 +46,22 @@ export default class Api {
       body: JSON.stringify(arg),
     }); 
   }
+
+  toggleLike(cardId, isLiked) {
+    if (!isLiked) {return fetch(`${coghortUrl}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: {
+          authorization: token,
+          'Content-Type': 'application/json'
+        },
+      });
+    } else {return fetch(`${coghortUrl}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: {
+          authorization: token,
+          'Content-Type': 'application/json'
+        },
+      });
+    }
+  } 
 }
