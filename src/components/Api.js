@@ -63,5 +63,16 @@ export default class Api {
         },
       });
     }
-  } 
+  }
+
+  setAvatar(arg) {
+    return fetch(`${coghortUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(arg),
+    });
+  }
 }

@@ -9,6 +9,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import {
   profileEdditButton,
   photoAddButton,
+  proileAvatarButton
 } from '../utils/constants.js';
 import Api from '../components/Api';
 
@@ -43,6 +44,7 @@ const profileObject = new UserInfo({
   infoSelector: '.profile__description',
   picSelector: '.profile__avatar',
   setInfo: mestoApi.setUser,
+  setAvatar: mestoApi.setAvatar,  
 });
 
 mestoApi.getUser()
@@ -86,7 +88,11 @@ const profilePopup = new PopupWithForm({
   validityHider: () => formValidators['user-info'].hideInputErrors(),
 });
 
-
+const avatarPopup = new PopupWithForm({
+  selectorString: '.pop-up_type_avatar',
+  submitHandler: profileObject.setUserInfo,
+  validityHider: () => formValidators['user-pic'].hideInputErrors(),
+});
   
 const addPopup = new PopupWithForm({
   selectorString:'.pop-up_type_place',
@@ -96,8 +102,9 @@ const addPopup = new PopupWithForm({
 
 //============= listeners
 
-photoAddButton.addEventListener('click', _ => addPopup.open());
-profileEdditButton.addEventListener('click', _ => profilePopup.open())
+photoAddButton.addEventListener('click', () => addPopup.open());
+profileEdditButton.addEventListener('click', () => profilePopup.open());
+proileAvatarButton.addEventListener('click', () => avatarPopup.open());
 
 
 

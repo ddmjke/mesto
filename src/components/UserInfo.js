@@ -1,9 +1,10 @@
 export default class UserInfo {
-  constructor({nameSelector, infoSelector, picSelector, setInfo}){
+  constructor({nameSelector, infoSelector, picSelector, setInfo, setAvatar}){
     this._nameElement = document.querySelector(nameSelector);
     this._infoElement = document.querySelector(infoSelector);
     this._userPicElement = document.querySelector(picSelector);
     this._setInfo = setInfo;
+    this._setAvatar = setAvatar;
     this.getUserInfo = this.getUserInfo.bind(this);
     this.setUserInfo = this.setUserInfo.bind(this);
   }
@@ -16,14 +17,21 @@ export default class UserInfo {
   }
 
   setUserInfo(args) {
-    this._setInfo(args)
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-        this._nameElement.textContent = res.name;
-        this._infoElement.textContent = res.about;
-      })
+    if (args.avatar) {
+      this._setAvatar(args)
+        .then(res => res.json())
+        .then(res => this._userPicElement.src = res.avatar);
+    } else {
+      this._setInfo(args)
+        .then(res => res.json())
+        .then(res => {
+          this._nameElement.textContent = res.name;
+          this._infoElement.textContent = res.about;
+          this._userPicElement.src = res.avatar;
+        });
+    }
   }
+
 
   renderInfo(args) {
     this._nameElement.textContent = args['user-name'];

@@ -13,7 +13,10 @@
 
   <main>
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/userpic.jpg')%>" alt="Аватар">
+      <button class="profile__img-button" type="button">
+        <img class="profile__avatar" src="<%=require('./images/userpic.jpg')%>" alt="Аватар">
+        <div class="profile__overlay"></div>
+      </button>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button class="profile__eddit-button" type="button"></button>
@@ -41,6 +44,20 @@
         <label class="pop-up__field">
           <input class="pop-up__input pop-up__input_field_info" name="user-profession" type="text" id="user-profession" placeholder="Род деятельности" required minlength="2" maxlength="200">
           <span class="pop-up__input-error user-profession-error">!!!</span>
+        </label>
+        <button class="pop-up__submit-button" type="submit" disabled>Сохранить</button>
+      </form>
+      <button class="pop-up__close-button" type="button"></button>
+    </div>
+  </div>
+
+  <div class="pop-up pop-up_type_avatar">
+    <div class="pop-up__container">
+      <h2 class="pop-up__title">Обновить аватар</h2>
+      <form class="pop-up__form" name="user-pic" novalidate>
+        <label class="pop-up__field"> 
+          <input class="pop-up__input pop-up__input_field_avatar-link" type="url" id="avatar" placeholder="Ссылка на аватар" required>
+          <span class="pop-up__input-error avatar-error">!!!</span>          
         </label>
         <button class="pop-up__submit-button" type="submit" disabled>Сохранить</button>
       </form>
