@@ -1,25 +1,25 @@
+import { coghortUrl, token } from "../utils/autorization";
+
 export default class Api {
-  constructor({coghortUrl, token}) {
-    this._url = coghortUrl;
-    this._token = token;
-  }
+  constructor() {}
 
   getCards(){
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${coghortUrl}/cards`, {
       headers: {
-        authorization: this._token
+        authorization: token
       }
     })
-      .then(res => res.json());
+    .then(res => res.json());
   }
 
   getUser() {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${coghortUrl}/users/me`, {
       headers: {
-        authorization: this._token
+        authorization: token,
       }
     }).then(arg => arg.json())
     .then(arg => {
+      console.log(arg)
       const info = {}
       info['user-name'] = arg.name;
       info['user-profession'] = arg.about;
@@ -28,12 +28,18 @@ export default class Api {
     });
   }
 
-  postCard(card) {
-    return fetch(`${this._url}/cards`, {
-      
+  setUser(info) {
+    console.log(coghortUrl)
+    const arg = {};
+    arg.name = info['user-name'];
+    arg.about = info['user-profession'];
+    return fetch(`${coghortUrl}/users/me`, {
+      method: 'PATCH',
       headers: {
-        authorization: this._token
-      }
-    })
+        authorization: token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(arg),
+    }); 
   }
 }

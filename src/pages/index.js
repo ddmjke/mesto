@@ -11,7 +11,6 @@ import {
   photoAddButton,
 } from '../utils/constants.js';
 import Api from '../components/Api';
-import { coghortUrl, token } from '../utils/autorization';
 
 //============= validation
 const formValidators = {}
@@ -37,16 +36,17 @@ enableValidation(
 );
 
 //=============  functionality objects initialization
-const mestoApi = new Api({coghortUrl, token});
+const mestoApi = new Api();
 
 const profileObject = new UserInfo({
   nameSelector: '.profile__name',
   infoSelector: '.profile__description',
-  picSelector: '.profile__avatar'
+  picSelector: '.profile__avatar',
+  setInfo: mestoApi.setUser,
 });
 
 mestoApi.getUser()
-  .then(info => profileObject.setUserInfo(info))
+  .then(info => profileObject.renderInfo(info))
   .catch(_ => console.log(_, '<==='));
 
 const photoContainer = new Section(
