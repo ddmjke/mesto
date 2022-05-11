@@ -96,22 +96,7 @@ const avatarPopup = new PopupWithForm({
   
 const addPopup = new PopupWithForm({
   selectorString:'.pop-up_type_place',
-  submitHandler: (arg) => {
-    addPopup.pending();
-    const card = mestoApi.setCard(arg)
-      .then(res => {
-        if (res.ok) res.json()
-          else return Promise.reject(`HTTP error: ${res.status}`);
-      })
-      .then(res => {
-        photoContainer.addItem(res);
-        addPopup.close();
-      })
-      .catch(err => console.log(err))
-      .finally(() => {
-        addPopup.pending();
-      });
-  },
+  submitHandler: mestoApi.setCard,
   validityHider: () => formValidators['place-form'].hideInputErrors(),
 });
 

@@ -6,6 +6,7 @@ export default class PopupWithForm extends Popup {
     this._submitHandler = submitHandler;
     this._inputsFiller = inputsFiller || '';
     this._validityHider = validityHider;
+    this._submitHandler = this._submitHandler.bind(this);
     this._inputs = this._element.querySelectorAll('.pop-up__input');
     this._form = this._element.querySelector('.pop-up__form');
 
@@ -19,7 +20,22 @@ export default class PopupWithForm extends Popup {
 
   _submitHandleFunction(evt) {
     evt.preventDefault();
-    this._submitHandler(this._getInputValues());
+    this.pending();
+    console.log(this._getInputValues())
+    this._submitHandler(this._getInputValues())
+      .then(res => {
+        if (res.ok) res.json()
+          else return Promise.reject(`HTTP error: ${res.status}`);
+      })
+      .then(res => {
+        this._container.addItem(res);
+        this.close();
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        this.pending();
+      });
+    
   }
 
   _removeEventListeners() {
