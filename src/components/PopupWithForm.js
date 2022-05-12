@@ -6,10 +6,8 @@ export default class PopupWithForm extends Popup {
     this._submitHandler = submitHandler;
     this._inputsFiller = inputsFiller || '';
     this._validityHider = validityHider;
-    this._submitHandler = this._submitHandler.bind(this);
     this._inputs = this._element.querySelectorAll('.pop-up__input');
     this._form = this._element.querySelector('.pop-up__form');
-
     this._submitHandleFunction = this._submitHandleFunction.bind(this);
   }
 
@@ -20,20 +18,13 @@ export default class PopupWithForm extends Popup {
 
   _submitHandleFunction(evt) {
     evt.preventDefault();
-    this.pending();
-    console.log(this._getInputValues())
+    this._pending();
     this._submitHandler(this._getInputValues())
-      .then(res => {
-        if (res.ok) res.json()
-          else return Promise.reject(`HTTP error: ${res.status}`);
-      })
-      .then(res => {
-        this._container.addItem(res);
-        this.close();
-      })
-      .catch(err => console.log(err))
+      .then(() => this.close())
+      .catch(err => this._setError(err))
       .finally(() => {
-        this.pending();
+        this._pending();
+        this._validityHider();
       });
     
   }
@@ -69,10 +60,18 @@ export default class PopupWithForm extends Popup {
 
   close() {
     this._form.reset();
+    this._setError();
     super.close();
   }
 
-  pending() {
+  _pending() {
     this._form.querySelector('.pop-up__submit-button').classList.toggle('pop-up__submit-button_pending');
+  }
+
+  _setError(err) {
+    this._error = this._error || this._element.querySelector('.pop-up__network-error');
+    this._error.textContent = err;
+    if (err) this._error.classList.add('pop-up__network-error_visible')
+      else  this._error.classList.remove('pop-up__network-error_visible');
   }
 }

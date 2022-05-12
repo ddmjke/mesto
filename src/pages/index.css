@@ -46,6 +46,8 @@
 @import url(../blocks/pop-up/__input-error/pop-up__input-error.css);
 @import url(../blocks/pop-up/__input-error/_visable/pop-up__input-error_visable.css);
 @import url(../blocks/pop-up/__submit-button/_pending/pop-up__submit-button_pending.css);
+@import url(../blocks/pop-up/__network-error/pop-up__network-error.css);
+@import url(../blocks/pop-up/__network-error/_visible/pop-up__network-error_visible.css);
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);

@@ -19,7 +19,6 @@ export default class FormValidator {
   _setListeners() {
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._toggleButton(true);
     });
     this._inputs.forEach((pair) => {
       pair.input.addEventListener('input', (evt) => {
@@ -54,9 +53,10 @@ export default class FormValidator {
     return this._inputs.some((pair) => {return !pair.input.validity.valid});
   }
 
-  //============ public method to hide input errors when form just opened
+  //============ public method to set a state when form just reopened
 
   hideInputErrors() {
     this._inputs.forEach(input => this._validateInput(input, true));
+    this._toggleButton(true);
   }
 }

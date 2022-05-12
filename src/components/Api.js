@@ -1,32 +1,37 @@
-import { coghortUrl, token } from "../utils/autorization";
-
 export default class Api {
-  constructor() {}
+  constructor({coghortUrl, token}) {
+    this._root = coghortUrl;
+    this._token = token;
+  }
 
   getCards(){
-    return fetch(`${coghortUrl}/cards`, {
+    return fetch(`${this._root}/cards`, {
       headers: {
-        authorization: token
+        authorization: this._token
       }
     })
     .then(res => res.json());
   }
 
   getUser() {
-    return fetch(`${coghortUrl}/users/me`, {
+    return fetch(`${this._root}/users/me`, {
       headers: {
-        authorization: token,
+        authorization: this._token,
       }
-    }).then(arg => arg.json())
-    .then(arg => {
-      console.log(arg)
+    }).then(res => {
+      if (res.ok) return res.json()
+        else return Promise.reject(`HTTP error: ${res.status}`);
+    })
+    .then(res => {
       const info = {}
-      info['user-name'] = arg.name;
-      info['user-profession'] = arg.about;
-      info['user-pic'] = arg.avatar;
-      this._id = arg._id;
+      info['user-name'] = res.name;
+      info['user-profession'] = res.about;
+      info['user-pic'] = res.avatar;
+      this._id = res._id;
       return info;
-    });
+    })
+    .catch(err => console.log(`Network error: ${err}`))
+    .finally(() => {console.log('User info sucessfuly loaded')});
   }
 
   isMe(user) {
@@ -37,10 +42,10 @@ export default class Api {
     const arg = {};
     arg.name = info['user-name'];
     arg.about = info['user-profession'];
-    return fetch(`${coghortUrl}/users/me`, {
+    return fetch(`${this._root}/users/me`, {
       method: 'PATCH',
       headers: {
-        authorization: token,
+        authorization: this._token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(arg),
@@ -48,17 +53,17 @@ export default class Api {
   }
 
   toggleLike(cardId, isLiked) {
-    if (!isLiked) {return fetch(`${coghortUrl}/cards/likes/${cardId}`, {
+    if (!isLiked) {return fetch(`${this._root}/cards/likes/${cardId}`, {
         method: 'PUT',
         headers: {
-          authorization: token,
+          authorization: this._token,
           'Content-Type': 'application/json'
         },
       });
-    } else {return fetch(`${coghortUrl}/cards/likes/${cardId}`, {
+    } else {return fetch(`${this._root}/cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: {
-          authorization: token,
+          authorization: this._token,
           'Content-Type': 'application/json'
         },
       });
@@ -66,10 +71,10 @@ export default class Api {
   }
 
   setAvatar(arg) {
-    return fetch(`${coghortUrl}/users/me/avatar`, {
+    return fetch(`${this._root}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
-        authorization: token,
+        authorization: this._token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(arg),
@@ -77,10 +82,10 @@ export default class Api {
   }
 
   setCard(card) {
-    return fetch(`${coghortUrl}/cards`, {
+    return fetch(`${this._root}/cards`, {
       method: 'POST',
       headers: {
-        authorization: token,
+        authorization: this._token,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(card),
@@ -88,10 +93,10 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    fetch(`${coghortUrl}/cards/${cardId}`, {
+    fetch(`${this._root}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        authorization: token,
+        authorization: this._token,
         'Content-Type': 'application/json'
       },
     });

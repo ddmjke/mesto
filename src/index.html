@@ -36,6 +36,7 @@
   <div class="pop-up pop-up_type_profile">
     <div class="pop-up__container">
       <h2 class="pop-up__title">Редактировать профиль</h2>
+      <span class="pop-up__network-error">!!!</span>
       <form class="pop-up__form" name="user-info" novalidate>
         <label class="pop-up__field">
           <input class="pop-up__input pop-up__input_field_name" name="user-name" type="text" id="user-name" placeholder="Имя" required minlength="2" maxlength="40">
@@ -54,12 +55,13 @@
   <div class="pop-up pop-up_type_avatar">
     <div class="pop-up__container">
       <h2 class="pop-up__title">Обновить аватар</h2>
+      <span class="pop-up__network-error">!!!</span>
       <form class="pop-up__form" name="user-pic" novalidate>
         <label class="pop-up__field"> 
           <input class="pop-up__input pop-up__input_field_avatar-link" type="url" id="avatar" placeholder="Ссылка на аватар" required>
           <span class="pop-up__input-error avatar-error">!!!</span>          
         </label>
-        <button class="pop-up__submit-button pop-up__submit-button_pending" type="submit" disabled>Сохранить</button>
+        <button class="pop-up__submit-button" type="submit" disabled>Сохранить</button>
       </form>
       <button class="pop-up__close-button" type="button"></button>
     </div>
@@ -68,6 +70,7 @@
   <div class="pop-up pop-up_type_place">
     <div class="pop-up__container">
       <h2 class="pop-up__title">Новое место</h2>
+      <span class="pop-up__network-error">!!!</span>
       <form class="pop-up__form" name="place-form" novalidate>
         <label class="pop-up__field">
           <input class="pop-up__input pop-up__input_field_place-name" type="text" id="name" placeholder="Название" required minlength="2" maxlength="30">

@@ -37,7 +37,10 @@ enableValidation(
 );
 
 //=============  functionality objects initialization
-const mestoApi = new Api();
+const mestoApi = new Api({
+  coghortUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',
+  token: 'd4112968-6ba1-4a40-975c-b5c593c09b3a',
+});
 
 const profileObject = new UserInfo({
   nameSelector: '.profile__name',
@@ -74,7 +77,7 @@ const photoContainer = new Section(
 );
 
 mestoApi.getCards()
-  .then( cards => photoContainer.renderAll(cards))
+  .then(cards => photoContainer.renderAll(cards))
   .catch(_ => console.log(_))
   .finally(_ => console.log('finally!'))
     
@@ -96,7 +99,17 @@ const avatarPopup = new PopupWithForm({
   
 const addPopup = new PopupWithForm({
   selectorString:'.pop-up_type_place',
-  submitHandler: mestoApi.setCard,
+  submitHandler: (args) => {
+    return mestoApi.setCard(args)
+      .then(res => {
+        if (res.ok) return res.json()
+          else return Promise.reject(`HTTP error: ${res.status}`);
+      })
+      .then(res => {
+        photoContainer.addItem(res);
+        return Promise.resolve()
+      });
+  },
   validityHider: () => formValidators['place-form'].hideInputErrors(),
 });
 
