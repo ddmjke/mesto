@@ -39,7 +39,7 @@
 .pop-up__field{display:block;position:relative}
 .pop-up__input-error{color:red;display:inline-block;font-size:12px;font-weight:400;line-height:15px;padding-top:5px;position:absolute;visibility:hidden;z-index:2}
 .pop-up__input-error_visable{visibility:visible}
-.pop-up__submit-button_pending:after{-webkit-animation:dots .8s steps(5) infinite;animation:dots .8s steps(5) infinite;content:" ."}
+.pop-up__submit-button_pending:after{-webkit-animation:dots .2s steps(5) infinite;animation:dots .2s steps(5) infinite;content:" ."}
 .pop-up__network-error{color:red;display:inline-block;font-size:18px;font-weight:400;line-height:15px;padding:0;visibility:hidden}
 .pop-up__network-error_visible{visibility:visible}
 .footer{margin:0 auto 36px;max-width:calc(100% - 400px)}@media screen and (max-width:1280px){.footer{--horizontal-margin:calc(-252.5px + 35.35156%);max-width:calc(100% - var(--horizontal-margin)*2)}}@media screen and (max-width:768px){.footer{flex-direction:column;height:100%;max-width:calc(100% - 38px)}}
