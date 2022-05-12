@@ -63,7 +63,7 @@ export default class PopupWithForm extends Popup {
   }
 
   _pending() {
-    this._form.querySelector('.pop-up__submit-button').classList.toggle('pop-up__submit-button_pending');
+    this._element.querySelector('.pop-up__submit-button').classList.toggle('pop-up__submit-button_pending');
   }
 
   _setError(err) {

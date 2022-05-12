@@ -53,10 +53,6 @@ export default class Card {
 
   _handleLikeButton() {
     this._toggleLike(this._id, this._isLiked)
-      .then(res => {
-        if (res.ok) return res.json()
-          else return Promise.reject(res.status);
-      })
       .then(card => {
         this._isLiked = !this._isLiked;
         this._likeButton.classList.toggle('photo-grid__like-button_active');
