@@ -19,7 +19,8 @@ export default class PopupWithForm extends Popup {
   _submitHandleFunction(evt) {
     evt.preventDefault();
     this._pending();
-    this._submitHandler(this._getInputValues())
+    const args = this._getInputValues() || this._id;
+    this._submitHandler(args)
       .then(() => this.close())
       .catch(err => this._setError(err))
       .finally(() => {
@@ -36,10 +37,12 @@ export default class PopupWithForm extends Popup {
 
   _getInputValues() {
     this._formValue = this._formValue || {};
+    let hasValue = false;
     this._inputs.forEach(input => {
       this._formValue[input.id] = input.value;
+      hasValue = true;
     });
-    return this._formValue;
+    return hasValue? this._formValue : hasValue;
   }
   
 
@@ -52,7 +55,8 @@ export default class PopupWithForm extends Popup {
     }
   }
 
-  open() {
+  open(id) {
+    this._id = id || this._id;
     this._setInputValues();
     this._validityHider();
     super.open();

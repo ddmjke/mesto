@@ -53,7 +53,7 @@ const profileObject = new UserInfo({
 
 mestoApi.getUser()
   .then(info => profileObject.renderInfo(info))
-  .catch(_ => console.log(_, '<==='));
+  .catch(err => console.log(`Failed to load user: ${err}`));
 
 const photoContainer = new Section(
   {
@@ -68,7 +68,9 @@ const photoContainer = new Section(
           cardId: photo._id,
           toggleLike: mestoApi.toggleLike,
           handleClick: () => {photoPopup.open(photo.link, photo.name)},
-          handleDelete: mestoApi.deleteCard,
+          handleDelete: (arg) => {
+            confirmPopup.open(arg);
+          } 
         },
         '.photo-grid__card');
       return card.generateCard();
@@ -79,12 +81,17 @@ const photoContainer = new Section(
 
 mestoApi.getCards()
   .then(cards => photoContainer.renderAll(cards))
-  .catch(_ => console.log(_))
-  .finally(_ => console.log('finally!'))
+  .catch(err => console.log(`Failed to load cards: ${err}`))
     
     
 const photoPopup = new PopupWithImage('.pop-up_type_photo');
-    
+
+const confirmPopup = new PopupWithForm({
+  selectorString: '.pop-up_type_confirm',
+  submitHandler: (arg) => {return mestoApi.deleteCard(arg)},
+  validityHider: _ => {}
+})
+
 const profilePopup = new PopupWithForm({
   selectorString:'.pop-up_type_profile',
   submitHandler: profileObject.setUserInfo,

@@ -46,17 +46,21 @@ export default class Card {
     });
     if (this._self) this._card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
       evt.stopPropagation();
-      this._handleDelete(this._id);
-      this._card.remove();
-      this._card = null;
+      this._handleDelete(this._id)
+        .then(_ => {
+          console.log(_)
+          this._card.remove();
+          this._card = null;
+        })
+        .catch(err => console.log(`Not deleted. Error: ${err.status}`))
     });
   }
 
   _handleLikeButton() {
     this._toggleLike(this._id, this._isLiked)
       .then(res => {
-        if (res.ok) {return res.json()}
-          else return Promise.reject('<++++++++++>');
+        if (res.ok) return res.json()
+          else return Promise.reject(res.status);
       })
       .then(card => {
         this._isLiked = !this._isLiked;

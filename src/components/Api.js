@@ -2,6 +2,18 @@ export default class Api {
   constructor({coghortUrl, token}) {
     this._root = coghortUrl;
     this._token = token;
+
+    //they all loosing it somehow 
+    // but class structure is defined by higher powers
+    this.getCards = this.getCards.bind(this);
+    this.getUser = this.getUser.bind(this);
+    this.getUser = this.getUser.bind(this);
+    this.setUser = this.setUser.bind(this);
+    this.toggleLike = this.toggleLike.bind(this);
+    this.setAvatar = this.setAvatar.bind(this);
+    this.setCard = this.setCard.bind(this);
+    this.deleteCard = this.deleteCard.bind(this);
+
   }
 
   getCards(){
@@ -10,13 +22,16 @@ export default class Api {
         authorization: this._token
       }
     })
-    .then(res => res.json());
+    .then(res => {
+      if (res.ok) return res.json()
+        else return Promise.reject(`HTTP error: ${res.status}`);
+    });
   }
 
   getUser() {
     return fetch(`${this._root}/users/me`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token
       }
     }).then(res => {
       if (res.ok) return res.json()
@@ -93,7 +108,7 @@ export default class Api {
   }
 
   deleteCard(cardId) {
-    fetch(`${this._root}/cards/${cardId}`, {
+    return fetch(`${this._root}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this._token,
