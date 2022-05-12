@@ -72,5 +72,4 @@ export default class PopupWithForm extends Popup {
     if (err) this._error.classList.add('pop-up__network-error_visible')
       else  this._error.classList.remove('pop-up__network-error_visible');
   }
-
 }

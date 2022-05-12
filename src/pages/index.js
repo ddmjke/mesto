@@ -52,10 +52,6 @@ const profileObject = new UserInfo({
   setAvatar: mestoApi.setAvatar,  
 });
 
-mestoApi.getUser()
-  .then(info => profileObject.renderInfo(info))
-  .catch(err => console.log(`Failed to load user: ${err}`));
-
 const photoContainer = new Section(
   {
     render: (photo) => {
@@ -78,11 +74,18 @@ const photoContainer = new Section(
   '.photo-grid'
 );
 
-mestoApi.getCards()
-  .then(cards => photoContainer.renderAll(cards))
-  .catch(err => console.log(`Failed to load cards: ${err}`))
+//=========== initial info load
+
+Promise.all([mestoApi.getUser(), mestoApi.getCards()])
+  .then(([info, cards]) => {
+    profileObject.renderInfo(info);
+    photoContainer.renderAll(cards);
+  })
+  .catch(err => console.log(`Failed to load initial info : ${err}`));
+
     
-    
+//========== pop-ups initialization
+
 const photoPopup = new PopupWithImage('.pop-up_type_photo');
 
 const confirmPopup = new PopupWithSubmit({
@@ -108,10 +111,6 @@ const addPopup = new PopupWithForm({
   submitHandler: (args) => {
     return mestoApi.setCard(args)
       .then(res => {
-        if (res.ok) return res.json()
-          else return Promise.reject(`HTTP error: ${res.status}`);
-      })
-      .then(res => {
         photoContainer.addItem(res);
         return Promise.resolve()
       });
@@ -119,7 +118,7 @@ const addPopup = new PopupWithForm({
   validityHider: () => formValidators['place-form'].hideInputErrors(),
 });
 
-//============= listeners
+//============= static listeners
 
 photoAddButton.addEventListener('click', () => addPopup.open());
 profileEdditButton.addEventListener('click', () => profilePopup.open());

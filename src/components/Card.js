@@ -63,6 +63,6 @@ export default class Card {
         this._likes = card.likes.length;
         this._likesElement.textContent = card.likes.length;
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(`Cannot like anything nowdays :${err}`));
   }
 }

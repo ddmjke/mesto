@@ -19,21 +19,13 @@ export default class UserInfo {
   setUserInfo(args) {
     const prom = (args.avatar)
     ? this._setAvatar(args)
-        .then(res => {
-          if (res.ok) return res.json()
-            else return Promise.reject(`HTTP error: ${res.status}`);
-        })
         .then(res => this._userPicElement.src = res.avatar)
     : this._setInfo(args)
-        .then(res => {
-          if (res.ok) return res.json()
-            else return Promise.reject(`HTTP error: ${res.status}`);
-        })
         .then(res => {
           this._nameElement.textContent = res.name;
           this._infoElement.textContent = res.about;
           this._userPicElement.src = res.avatar;
-        });
+        })
     return prom;
   }
 

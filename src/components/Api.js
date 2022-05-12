@@ -13,7 +13,11 @@ export default class Api {
     this.setAvatar = this.setAvatar.bind(this);
     this.setCard = this.setCard.bind(this);
     this.deleteCard = this.deleteCard.bind(this);
+  }
 
+  _checkRes(res) {
+    if (res.ok) return res.json()
+      else return Promise.reject(`Error ${res.status}`);
   }
 
   getCards(){
@@ -22,10 +26,7 @@ export default class Api {
         authorization: this._token
       }
     })
-    .then(res => {
-      if (res.ok) return res.json()
-        else return Promise.reject(`HTTP error: ${res.status}`);
-    });
+    .then(this._checkRes);
   }
 
   getUser() {
@@ -33,10 +34,8 @@ export default class Api {
       headers: {
         authorization: this._token
       }
-    }).then(res => {
-      if (res.ok) return res.json()
-        else return Promise.reject(`HTTP error: ${res.status}`);
     })
+    .then(this._checkRes)
     .then(res => {
       const info = {}
       info['user-name'] = res.name;
@@ -45,7 +44,6 @@ export default class Api {
       this._id = res._id;
       return info;
     })
-    .catch(err => console.log(`Network error: ${err}`))
   }
 
   isMe(user) {
@@ -63,7 +61,8 @@ export default class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(arg),
-    }); 
+    })
+    .then(this._checkRes) 
   }
 
   toggleLike(cardId, isLiked) {
@@ -73,14 +72,16 @@ export default class Api {
           authorization: this._token,
           'Content-Type': 'application/json'
         },
-      });
+      })
+      .then(this._checkRes);
     } else {return fetch(`${this._root}/cards/likes/${cardId}`, {
         method: 'DELETE',
         headers: {
           authorization: this._token,
           'Content-Type': 'application/json'
         },
-      });
+      })
+      .then(this._checkRes);
     }
   }
 
@@ -92,7 +93,8 @@ export default class Api {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(arg),
-    });
+    })
+    .then(this._checkRes);
   }
 
   setCard(card) {
@@ -104,6 +106,7 @@ export default class Api {
       },
       body: JSON.stringify(card),
     })
+    .then(this._checkRes);
   }
 
   deleteCard(cardId) {
@@ -113,6 +116,7 @@ export default class Api {
         authorization: this._token,
         'Content-Type': 'application/json'
       },
-    });
+    })
+    .then(this._checkRes);
   }
 }
