@@ -12,6 +12,7 @@ import {
   proileAvatarButton
 } from '../utils/constants.js';
 import Api from '../components/Api';
+import PopupWithSubmit from '../components/PopupWithSubmit';
 
 //============= validation
 const formValidators = {}
@@ -68,7 +69,7 @@ const photoContainer = new Section(
           cardId: photo._id,
           toggleLike: mestoApi.toggleLike,
           handleClick: () => {photoPopup.open(photo.link, photo.name)},
-          handleDelete: arg => confirmPopup.deleteCard(arg), 
+          handleDelete: confirmPopup.setDeleteFunction, 
         },
         '.photo-grid__card');
       return card.generateCard();
@@ -84,10 +85,9 @@ mestoApi.getCards()
     
 const photoPopup = new PopupWithImage('.pop-up_type_photo');
 
-const confirmPopup = new PopupWithForm({
+const confirmPopup = new PopupWithSubmit({
   selectorString: '.pop-up_type_confirm',
   submitHandler: (arg) => {return mestoApi.deleteCard(arg)},
-  validityHider: _ => {}
 })
 
 const profilePopup = new PopupWithForm({

@@ -12,6 +12,7 @@ export default class Card {
 
     this._handleClick = handleClick;
     this._handleDelete = handleDelete;
+    this._handleDelete = this._handleDelete.bind(this);
     this._cardSelector = cardSelector;
   }
 
@@ -46,11 +47,7 @@ export default class Card {
     });
     if (this._self) this._card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
       evt.stopPropagation();
-      this._handleDelete(this._id)
-        .then(() => {
-          this._card.remove();
-          this._card = null;
-        })
+      this._handleDelete(this._id, () => {this._card.remove(); this._card = null});
     });
   }
 
