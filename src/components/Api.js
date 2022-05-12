@@ -46,7 +46,6 @@ export default class Api {
       return info;
     })
     .catch(err => console.log(`Network error: ${err}`))
-    .finally(() => {console.log('User info sucessfuly loaded')});
   }
 
   isMe(user) {

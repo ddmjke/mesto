@@ -68,9 +68,7 @@ const photoContainer = new Section(
           cardId: photo._id,
           toggleLike: mestoApi.toggleLike,
           handleClick: () => {photoPopup.open(photo.link, photo.name)},
-          handleDelete: (arg) => {
-            confirmPopup.open(arg);
-          } 
+          handleDelete: arg => confirmPopup.deleteCard(arg), 
         },
         '.photo-grid__card');
       return card.generateCard();

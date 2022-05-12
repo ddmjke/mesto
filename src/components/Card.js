@@ -47,12 +47,10 @@ export default class Card {
     if (this._self) this._card.querySelector('.photo-grid__remove-button').addEventListener('click', (evt) => {
       evt.stopPropagation();
       this._handleDelete(this._id)
-        .then(_ => {
-          console.log(_)
+        .then(() => {
           this._card.remove();
           this._card = null;
         })
-        .catch(err => console.log(`Not deleted. Error: ${err.status}`))
     });
   }
 

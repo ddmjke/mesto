@@ -20,14 +20,13 @@ export default class PopupWithForm extends Popup {
     evt.preventDefault();
     this._pending();
     const args = this._getInputValues() || this._id;
-    this._submitHandler(args)
+    return this._submitHandler(args)
       .then(() => this.close())
       .catch(err => this._setError(err))
       .finally(() => {
         this._pending();
         this._validityHider();
       });
-    
   }
 
   _removeEventListeners() {
@@ -55,8 +54,7 @@ export default class PopupWithForm extends Popup {
     }
   }
 
-  open(id) {
-    this._id = id || this._id;
+  open() {
     this._setInputValues();
     this._validityHider();
     super.open();
@@ -77,5 +75,13 @@ export default class PopupWithForm extends Popup {
     this._error.textContent = err;
     if (err) this._error.classList.add('pop-up__network-error_visible')
       else  this._error.classList.remove('pop-up__network-error_visible');
+  }
+
+  deleteCard(id) {
+    this._id = id;
+    this.open();
+    return new Promise(resolve => {
+      this._element.addEventListener('submit', () => resolve());
+    })
   }
 }
