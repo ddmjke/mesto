@@ -39,6 +39,7 @@ enableValidation(
 //=============  functionality objects initialization
 const mestoApi = new Api({
   coghortUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',
+  //dear github followers please dont tell anyone this:
   token: 'd4112968-6ba1-4a40-975c-b5c593c09b3a',
 });
 
